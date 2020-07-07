@@ -1,3 +1,5 @@
+from typing import Dict
+
 import qwiic_i2c
 from smbus2 import SMBus, i2c_msg
 
@@ -8,7 +10,7 @@ config_1 = 0b01010101
 
 class tca9539(object):
 
-    def __init__(self, address, config_0, config_1):
+    def __init__(self, params: Dict):
 
         self.addr = address
         self.input_0 = 0    # 0 is low
@@ -20,6 +22,7 @@ class tca9539(object):
         self.config_0 = config_0    # 0 is poutput, 1 is input
         self.config_1 = config_1
 
+        # configure IO ports
 
     def show_tca9539(addr: int):
         b = bus.read_byte_data(addr, i)
