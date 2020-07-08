@@ -15,7 +15,7 @@ REG_INVERT_1 = 5
 REG_CONFIG_0 = 6
 REG_CONFIG_1 = 7
 
-DIGITAL_IN_0_CONFIG = {
+CONFIG_DIN_0 = {
     "addr": 0x74,
     "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
     "invert_1": 0b00000000,
@@ -25,7 +25,7 @@ DIGITAL_IN_0_CONFIG = {
     "output_1_init": 0b00000000,
 }
 
-DIGITAL_IN_1_CONFIG = {
+CONFIG_DIN_1 = {
     "addr": 0x75,
     "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
     "invert_1": 0b00000000,
@@ -35,7 +35,7 @@ DIGITAL_IN_1_CONFIG = {
     "output_1_init": 0b00000000,
 }
 
-DIGITAL_OUT_CONFIG = {
+CONFIG_DOUT = {
     "addr": 0x76,
     "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
     "invert_1": 0b00000000,
@@ -45,7 +45,7 @@ DIGITAL_OUT_CONFIG = {
     "output_1_init": 0b00000000,
 }
 
-SPECIALS_CONFIG = {
+CONFIG_SPECIALS = {
     "addr": 0x77,
     "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
     "invert_1": 0b00000000,
@@ -80,8 +80,9 @@ class tca9539(object):
             # self.bus.write_byte_data(self.addr, REG_OUTPUT_0, self.output_0_init)
             # self.bus.write_byte_data(self.addr, REG_OUTPUT_1, self.output_1_init)
             data = [
-                self.output_0_init, self.output_1_init,
-                self.invert_0, self.invert_1, self.config_0, self.config_1,
+                self.output_0, self.output_1,
+                self.invert_0, self.invert_1,
+                self.config_0, self.config_1,
             ]
         except IOError as err:
             print("Failed to reset {:} err {:}".format(self.addr, err))
@@ -117,7 +118,7 @@ class tca9539(object):
             # i1 = self.bus.read_byte_data(self.addr, REG_INVERT_1)
             # c0 = self.bus.read_byte_data(self.addr, REG_CONFIG_0)
             # c1 = self.bus.read_byte_data(self.addr, REG_CONFIG_1)
-            i0, i1, c0, c1 = read_i2c_block_data(self.addr, REG_INVERT_0, 4)
+            i0, i1, c0, c1 = self.bus.read_i2c_block_data(self.addr, REG_INVERT_0, 4)
 
         except IOError as err:
             print("Failed to read configs {:} err {:}".format(self.addr, err))
@@ -128,28 +129,14 @@ class tca9539(object):
         try:
             # p0 = self.bus.read_byte_data(self.addr, REG_INPUT_0)
             # p1 = self.bus.read_byte_data(self.addr, REG_INPUT_1)
-            p0, p1 = read_i2c_block_data(self.addr, REG_INPUT_0, 2)
-       except IOError as err:
+            p0, p1 = self.bus.read_i2c_block_data(self.addr, REG_INPUT_0, 2)
+        except IOError as err:
             print("Failed to read port {:} err {:}".format(self.addr, err))
             return False
-        print("Port {:x}: {:x}.{:x}".format(self.addr, port_0, port_1))
 
+        print("Port {:x}: {:x}.{:x}".format(self.addr, p0, p1))
 
-def main():
-    # Open i2c bus 1 and read one byte from address 0x77, offset 0
-    bus = SMBus(1)
-    addrs = [0x74, 0x77]
-    try:
-        for addr in addrs:
-            print("Addr: {:}".format(addr))
-            for i in range(7):
-                b = bus.read_byte_data(addr, i)
-                print("Read back {:}".format(b))
-    except IOError as err:
-        print("Failed to connect to {:} err {:}".format(addr, err))
-
-    bus.close()
 
 # Do Not Delete
 if __name__ == "__main__":
-    main()
+    print("Tried to execute device_tca9539 class definition - EXITING")
