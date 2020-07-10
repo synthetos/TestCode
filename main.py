@@ -48,13 +48,12 @@ def main():
     specials.show_config()
     specials.show_ports()
     while True:
-        # specials.write_byte(1, 0x00)
-        specials.set_bit(1, 0x00)
-        print("0x00")
+        led4.set()
+        print("SET")
         time.sleep(1.0)
 
-        specials.clr_byte(1, 0xFF)
-        print("0xFF")
+        led4.clear()
+        print("CLEAR")
         time.sleep(1.0)
 
     bus.close()

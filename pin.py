@@ -54,7 +54,14 @@ class pin(object):
         properties['retry'] = properties.setdefault('retry', 0)
 
         self.device = device
-        self.properties = properties
+        # self.properties = properties
+        # self.name = properties['name']
+        # self.type = properties['type']
+        self.port = properties['port']
+        self.bit = properties['bit']
+        # self.direction = properties['direction']
+        # self.polarity = properties['polarity']
+        # self.init = properties['init']
 
         try:
             if device.type != properties['type']:  # cross check pin type and device type
@@ -65,18 +72,18 @@ class pin(object):
         # initialize pin using code in the underlying device
         device.init_pin(properties)  # errors are fatal and handled by device
 
-    def set_bit(self, port: int, bit: int, args={}):
-        device.write_port_bit(port, bit, 1)
+    def set(self):
+        self.device.write_port_bit(self.port, self.bit, 1)
 
-    def clear_bit(self, port: int, bit: int, args={}):
-        device.write_port_bit(port, bit, 0)
+    def clear(self):
+        self.device.write_port_bit(self.port, self.bit, 0)
 
-    def write_bit(self, port: int, bit: int, bit_value: int, args={}):
-       device.write_port_bit(port, bit, bit_value)
+    def write(self, bit_value: int):
+       self.device.write_port_bit(self.port, self.bit, bit_value)
 
-    # def toggle_bit(self, port: int, bit: int, args={}):
+    # def toggle(self, port: int, bit: int, args={}):
 
-    # def read_bit(self, port: int, bit: int, args={}):
+    # def get(self, port: int, bit: int, args={}):
 
 
 # Do Not Delete

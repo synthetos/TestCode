@@ -53,8 +53,8 @@ CONFIG_SPECIALS = {
     "addr": 0x77,                   # 119 decimal
     "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
     "invert_1": 0b00000000,
-    "config_0": 0b00010000,         # 0 is output pin, 1 is input pin
-    "config_1": 0b01010101,
+    "config_0": 0b00000000,         # 0 is output pin, 1 is input pin
+    "config_1": 0b00000000,
     "output_0": 0b00000000,         # initialization/reset value - 0 is LO
     "output_1": 0b00000000,
 }
@@ -62,43 +62,57 @@ CONFIG_SPECIALS = {
 
 class tca9539(object):
 
-    def __init__(self, bus: Callable, config: Dict):
+    def __init__(self, bus: Callable, properties: Dict):
 
         self.partno = 'tca9539'
         self.type = 'IO'
         self.bus = bus
-        self.addr = config['addr']
-        self.output_0 = config['output_0']  # initlaization / reset value
-        self.output_1 = config['output_1']
-        self.invert_0 = config['invert_0']
-        self.invert_1 = config['invert_1']
-        self.config_0 = config['config_0']
-        self.config_1 = config['config_1']
+        self.addr = properties['addr']
+        self.init_output_0 = properties['output_0']  # init / reset values
+        self.init_output_1 = properties['output_1']
+        self.init_invert_0 = properties['invert_0']
+        self.init_invert_1 = properties['invert_1']
+        self.init_config_0 = properties['config_0']
+        self.init_config_1 = properties['config_1']
         self.reset()
         return
 
-    def reset(self) -> bool:
+    def reset(self):
         try:
-            self.bus.write_byte_data(self.addr, REG_INVERT_0, self.invert_0)
-            self.bus.write_byte_data(self.addr, REG_INVERT_1, self.invert_1)
-            self.bus.write_byte_data(self.addr, REG_CONFIG_0, self.config_0)
-            self.bus.write_byte_data(self.addr, REG_CONFIG_1, self.config_1)
-            self.bus.write_byte_data(self.addr, REG_OUTPUT_0, self.output_0)
-            self.bus.write_byte_data(self.addr, REG_OUTPUT_1, self.output_1)
+            self.bus.write_byte_data(self.addr, REG_INVERT_0, self.init_invert_0)
+            self.bus.write_byte_data(self.addr, REG_INVERT_1, self.init_invert_1)
+            self.bus.write_byte_data(self.addr, REG_CONFIG_0, self.init_config_0)
+            self.bus.write_byte_data(self.addr, REG_CONFIG_1, self.init_config_1)
+            self.bus.write_byte_data(self.addr, REG_OUTPUT_0, self.init_output_0)
+            self.bus.write_byte_data(self.addr, REG_OUTPUT_1, self.init_output_1)
             # data = [
-            #     self.output_0, self.output_1,
-            #     self.invert_0, self.invert_1,
-            #     self.config_0, self.config_1,
+            #     self.init_output_0, self.init_output_1,
+            #     self.init_invert_0, self.init_invert_1,
+            #     self.init_config_0, self.init_config_1,
             # ]
             # self.bus.write_byte_data(self.addr, REG_OUTPUT_0, data)
 
         except IOError as err:
-            print("Failed to reset {:} err {:}".format(self.addr, err))
-            return False
-        return True
+            fatal("Failed to reset {:} err {:}".format(self.addr, err))
+
+    def write_attr_bit(self, byte: int, bit: int, bit_value: int):
+        """ Set or clear a bit in a byte variable to bit_value """
+        if bit_value == 1:
+            byte |= (1 << bit)
+            # byte = byte | (1 << bit)
+        else:
+            byte &= ~(0 << bit)
+            # byte = byte & ~(0 << bit)
+
+    def write_byte(self, register: int, byte: int):
+        """ Write an byte value to a device register """
+        try:
+            self.bus.write_byte_data(self.addr, register, byte)
+        except IOError as err:
+            fatal("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
 
     def init_pin(self, pin: Dict):
-        """ Configure and initialize a digital IO pin. 
+        """ Configure and initialize a digital IO pin.
             See pin object for properties dictionary structure 
         """
         port = pin['port']
@@ -106,27 +120,32 @@ class tca9539(object):
         if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
             fatal("Pin misconfigation: {:}".format(pin['name']))
 
-        # reg_dir = REG_CONFIG_0 + port
-        # self.write_bit(reg_dir, bit, pin['direction'])
+        # update the device registers and shadow init values
         self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
+        self.write_attr_bit((REG_CONFIG_0 + port), bit, pin['direction'])
+
         self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
+        self.write_attr_bit((REG_INVERT_0 + port), bit, pin['polarity'])
+
+        # set initial output state if output bit 
         if pin['direction'] == 0:
             self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
+            self.write_attr_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
     def set_bit(self, register: int, bit: int, args={}):
-        """ Set bit 0-7 in register (e.g. port) """
+        """ Set bit 0-7 in device register (e.g. port) """
         mask = 1 << bit
         byte = self.bus.read_byte_data(self.addr, register)
         self.bus.write_byte_data(self.addr, register, byte | mask)
 
     def clear_bit(self, register: int, bit: int, args={}):
-        """ Clear bit 0-7 in register (e.g. port) """
+        """ Clear bit 0-7 in device register (e.g. port) """
         mask = 1 << bit
         byte = self.bus.read_byte_data(self.addr, register)
         self.bus.write_byte_data(self.addr, register, byte & ~mask)
 
     def write_bit(self, register: int, bit: int, bit_value: int, args={}):
-        """ Set or clear a bit in register to bit_value """
+        """ Set or clear a bit in device register to bit_value """
         mask = 1 << bit
         byte = self.bus.read_byte_data(self.addr, register)
         if bit_value == 1:
@@ -135,18 +154,8 @@ class tca9539(object):
             self.bus.write_byte_data(self.addr, register, byte & ~mask)
 
     def write_port_bit(self, port: int, bit: int, bit_value: int, args={}):
-        """ Translate a pin write to a register write """
+        """ Set/clear a bit in an output register """
         self.write_bit((REG_OUTPUT_0 + port), bit, bit_value, args)
-
-    def write_byte(self, port: int, value: int):
-        """ Write an output byte value to port 0 or 1 """
-        register = REG_OUTPUT_0 + port
-        try:
-            self.bus.write_byte_data(self.addr, register, value)
-        except IOError as err:
-            print("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-            return False
-        return True       
 
     def show_ports(self):
         try:
