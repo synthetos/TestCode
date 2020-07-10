@@ -1,39 +1,50 @@
-""" main.py - entry point for tester
+""" main.py
 
+    Entry point for tester
 
 """
 from typing import Dict
+import time
 
 import qwiic_i2c
 from smbus2 import SMBus, i2c_msg
 
 from device_tca9539 import tca9539
 from device_tca9539 import CONFIG_DIN_0, CONFIG_DIN_1, CONFIG_DOUT, CONFIG_SPECIALS
+from pin import pin
 
 
-""" 1=input, 0=output"""
-config_0 = 0b00010000
-config_1 = 0b01010101
+PIN_LED4 = {
+    'name': 'led4',
+    'type': 'IO',
+    'port': 1,
+    'bit': 7,
+    'direction': 0,
+    'polarity': 0,
+    'init': 0
+}
 
 def main():
-    """ Entry point for tester """
 
     bus = SMBus(1)
-    din0 = tca9539(bus, CONFIG_DIN_0)
-    din1 = tca9539(bus, CONFIG_DIN_1)
-    dout = tca9539(bus, CONFIG_DOUT)
+    # din0 = tca9539(bus, CONFIG_DIN_0)
+    # din1 = tca9539(bus, CONFIG_DIN_1)
+    # dout = tca9539(bus, CONFIG_DOUT)
     specials = tca9539(bus, CONFIG_SPECIALS)
 
-    # Open i2c bus 1 and read one byte from address 0x77, offset 0
-    addrs = [0x74, 0x77]
-    try:
-        for addr in addrs:
-            print("Addr: {:}".format(addr))
-            for i in range(7):
-                b = bus.read_byte_data(addr, i)
-                print("Read back {:}".format(b))
-    except IOError as err:
-        print("Failed to connect to {:} err {:}".format(addr, err))
+    led4 = pin(specials, PIN_LED4)
+
+    specials.show_config()
+    specials.show_ports()
+    while True:
+        # specials.write_byte(1, 0x00)
+        specials.write_bit(1, 0x00)
+        print("0x00")
+        time.sleep(1.0)
+
+        specials.write_byte(1, 0xFF)
+        print("0xFF")
+        time.sleep(1.0)
 
     bus.close()
 
