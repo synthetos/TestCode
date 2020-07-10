@@ -7,6 +7,8 @@ from typing import Dict, Callable
 # import qwiic_i2c
 from smbus2 import SMBus, i2c_msg
 
+from util import fatal
+
 
 REG_INPUT_0 = 0
 REG_INPUT_1 = 1
@@ -95,16 +97,67 @@ class tca9539(object):
             return False
         return True
 
-    def init_pin(self, properties: Dict):
+    def init_pin(self, pin: Dict):
         """ Configure and initialize a digital IO pin. 
-            See pin object for config dictionary structure 
+            See pin object for properties dictionary structure 
         """
-        if properties['type'] != 'IO' or \
-           properties['port'] not in [0, 1] or \
-           properties['bit'] not in range(0, 7):
-            raise RuntimeError
+        port = pin['port']
+        bit = pin['bit']
+        if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
+            fatal("Pin misconfigation: {:}".format(pin['name']))
 
-        
+        # reg_dir = REG_CONFIG_0 + port
+        # self.write_bit(reg_dir, bit, pin['direction'])
+        self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
+        self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
+        if pin['direction'] == 0:
+            self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
+
+    def set_bit(self, register: int, bit: int, args={}):
+        """ Set bit 0-7 in register (e.g. port) """
+        mask = 1 << bit
+        byte = self.bus.read_byte_data(self.addr, register)
+        self.bus.write_byte_data(self.addr, register, byte | mask)
+
+    def clear_bit(self, register: int, bit: int, args={}):
+        """ Clear bit 0-7 in register (e.g. port) """
+        mask = 1 << bit
+        byte = self.bus.read_byte_data(self.addr, register)
+        self.bus.write_byte_data(self.addr, register, byte & ~mask)
+
+    def write_bit(self, register: int, bit: int, bit_value: int, args={}):
+        """ Set or clear a bit in register to bit_value """
+        mask = 1 << bit
+        byte = self.bus.read_byte_data(self.addr, register)
+        if bit_value == 1:
+            self.bus.write_byte_data(self.addr, register, byte | mask)
+        else:
+            self.bus.write_byte_data(self.addr, register, byte & ~mask)
+
+    def write_port_bit(self, port: int, bit: int, bit_value: int, args={}):
+        """ Translate a pin write to a register write """
+        self.write_bit((REG_OUTPUT_0 + port), bit, bit_value, args)
+
+    def write_byte(self, port: int, value: int):
+        """ Write an output byte value to port 0 or 1 """
+        register = REG_OUTPUT_0 + port
+        try:
+            self.bus.write_byte_data(self.addr, register, value)
+        except IOError as err:
+            print("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
+            return False
+        return True       
+
+    def show_ports(self):
+        try:
+            # p0 = self.bus.read_byte_data(self.addr, REG_INPUT_0)
+            # p1 = self.bus.read_byte_data(self.addr, REG_INPUT_1)
+            p0, p1 = self.bus.read_i2c_block_data(self.addr, REG_INPUT_0, 2)
+        except IOError as err:
+            print("Failed to read port {:} err {:}".format(self.addr, err))
+            return False
+
+        print("Addr: Ox{:02X} Ports Ox{:02X}{:02X}".format(self.addr, p1, p0))
 
     def show_config(self):
         try:
@@ -118,59 +171,6 @@ class tca9539(object):
         except IOError as err:
             print("Failed to read configs {:} err {:}".format(self.addr, err))
             return False
-
-    def write_byte(self, port: int, value: int):
-        """ Write an output byte value to port 0 or 1 """
-        register = REG_OUTPUT_0 + port
-        try:
-            self.bus.write_byte_data(self.addr, register, value)
-        except IOError as err:
-            print("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-            return False
-        return True       
-
-    def set_bit(self, port: int, position: int):
-        """ Set output bit at port 0-1 / position 0-7 """
-        register = REG_OUTPUT_0 + port
-        try:
-            self.bus.write_byte_data(self.addr, register, value)
-        except IOError as err:
-            print("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-            return False
-        return True       
-
-    def write_bit(self, position: int, value: bool):
-        """ Set or clear a bit at position 0-15 """
-        if position < 8:
-            register = REG_OUTPUT_0
-        else:
-            register = REG_OUTPUT_1
-            position -= 8
-        mask = 1 << position
-        try:
-            byte = self.bus.read_byte_data(self.addr, register)
-            if value == 1:
-                new = byte | mask
-                self.bus.write_byte_data(self.addr, register, new)
-            else:
-                new = byte & ~mask
-                self.bus.write_byte_data(self.addr, register, new)
-        except IOError as err:
-            print("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-            return False
-        return True
-
-    def show_ports(self):
-        try:
-            # p0 = self.bus.read_byte_data(self.addr, REG_INPUT_0)
-            # p1 = self.bus.read_byte_data(self.addr, REG_INPUT_1)
-            p0, p1 = self.bus.read_i2c_block_data(self.addr, REG_INPUT_0, 2)
-        except IOError as err:
-            print("Failed to read port {:} err {:}".format(self.addr, err))
-            return False
-
-        print("Addr: Ox{:02X} Ports Ox{:02X}{:02X}".format(self.addr, p1, p0))
-
 
 # Do Not Delete
 if __name__ == "__main__":

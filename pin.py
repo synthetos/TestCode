@@ -47,7 +47,7 @@ class pin(object):
         if 'type' not in properties or properties['type'] not in VALID_PIN_TYPES:
             fatal("Pin type error for {:}".format(properties['name']))
         properties['port'] = properties.setdefault('port', 0)
-        properties['bit'] = properties.setdefault('port', 0)
+        properties['bit'] = properties.setdefault('bit', 0)
         properties['direction'] = properties.setdefault('direction', 0)
         properties['polarity'] = properties.setdefault('polarity', 0)
         properties['init'] = properties.setdefault('init', 0)
@@ -63,12 +63,21 @@ class pin(object):
             fatal("Device not found for pin: {:}".format(properties['name']))
 
         # initialize pin using code in the underlying device
-        try:
-            device.init_pin(properties)
-        except RuntimeError:
-            print("Unable to configure pin {:} on device {:}".format(
-                properties['name'], self.device.partno))
-            raise RuntimeError
+        device.init_pin(properties)  # errors are fatal and handled by device
+
+    def set_bit(self, port: int, bit: int, args={}):
+        device.write_port_bit(port, bit, 1)
+
+    def clear_bit(self, port: int, bit: int, args={}):
+        device.write_port_bit(port, bit, 0)
+
+    def write_bit(self, port: int, bit: int, bit_value: int, args={}):
+       device.write_port_bit(port, bit, bit_value)
+
+    # def toggle_bit(self, port: int, bit: int, args={}):
+
+    # def read_bit(self, port: int, bit: int, args={}):
+
 
 # Do Not Delete
 if __name__ == "__main__":
