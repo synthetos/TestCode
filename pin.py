@@ -72,18 +72,20 @@ class pin(object):
         # initialize pin using code in the underlying device
         device.init_pin(properties)  # errors are fatal and handled by device
 
+    def read(self):
+       return self.device.read_port_bit(self.port, self.bit)
+
     def set(self):
         self.device.write_port_bit(self.port, self.bit, 1)
 
     def clear(self):
         self.device.write_port_bit(self.port, self.bit, 0)
 
+    def toggle(self):
+       self.device.toggle_port_bit(self.port, self.bit)
+
     def write(self, bit_value: int):
        self.device.write_port_bit(self.port, self.bit, bit_value)
-
-    # def toggle(self, port: int, bit: int, args={}):
-
-    # def get(self, port: int, bit: int, args={}):
 
 
 # Do Not Delete

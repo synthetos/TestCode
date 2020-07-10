@@ -99,10 +99,8 @@ class tca9539(object):
         """ Set or clear a bit in a byte variable to bit_value """
         if bit_value == 1:
             byte |= (1 << bit)
-            # byte = byte | (1 << bit)
         else:
             byte &= ~(0 << bit)
-            # byte = byte & ~(0 << bit)
 
     def write_byte(self, register: int, byte: int):
         """ Write an byte value to a device register """
@@ -110,27 +108,6 @@ class tca9539(object):
             self.bus.write_byte_data(self.addr, register, byte)
         except IOError as err:
             fatal("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-
-    def init_pin(self, pin: Dict):
-        """ Configure and initialize a digital IO pin.
-            See pin object for properties dictionary structure 
-        """
-        port = pin['port']
-        bit = pin['bit']
-        if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
-            fatal("Pin misconfigation: {:}".format(pin['name']))
-
-        # update the device registers and shadow init values
-        self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
-        self.write_attr_bit((REG_CONFIG_0 + port), bit, pin['direction'])
-
-        self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
-        self.write_attr_bit((REG_INVERT_0 + port), bit, pin['polarity'])
-
-        # set initial output state if output bit 
-        if pin['direction'] == 0:
-            self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
-            self.write_attr_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
     def set_bit(self, register: int, bit: int, args={}):
         """ Set bit 0-7 in device register (e.g. port) """
@@ -153,10 +130,48 @@ class tca9539(object):
         else:
             self.bus.write_byte_data(self.addr, register, byte & ~mask)
 
+    # ################################
+    # support for pin class functions
+    #
+    def init_pin(self, pin: Dict):
+        """ Configure and initialize a digital IO pin.
+            See pin object for properties dictionary structure 
+        """
+        port = pin['port']
+        bit = pin['bit']
+        if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
+            fatal("Pin misconfigation: {:}".format(pin['name']))
+
+        # update the device registers and shadow init values
+        self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
+        self.write_attr_bit((REG_CONFIG_0 + port), bit, pin['direction'])
+
+        self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
+        self.write_attr_bit((REG_INVERT_0 + port), bit, pin['polarity'])
+
+        # set initial output state if output bit 
+        if pin['direction'] == 0:
+            self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
+            self.write_attr_bit((REG_OUTPUT_0 + port), bit, pin['init'])
+
+    def read_port_bit(self, port: int, bit: int, args={}) -> int:
+        """ read a bit in an input register: return 0 or 1 """
+        byte = self.bus.read_byte_data(self.addr, (REG_INPUT_0 + port))
+        return int(byte & (1 << bit) > 0)
+
     def write_port_bit(self, port: int, bit: int, bit_value: int, args={}):
         """ Set/clear a bit in an output register """
         self.write_bit((REG_OUTPUT_0 + port), bit, bit_value, args)
 
+    def toggle_port_bit(self, port: int, bit: int, args={}):
+        """ Toggle a bit in an output register """
+        byte = self.bus.read_byte_data(self.addr, (REG_OUTPUT_0 + port))
+        byte = byte ^ (1 << bit)
+        self.bus.write_byte_data(self.addr, (REG_OUTPUT_0 + port), byte)
+
+    # ###################
+    # display functions
+    #
     def show_ports(self):
         try:
             # p0 = self.bus.read_byte_data(self.addr, REG_INPUT_0)

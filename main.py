@@ -17,9 +17,9 @@ from pin import pin
 PIN_LED3 = {
     'name': 'led3',
     'type': 'IO',
-    'port': 0,
-    'bit': 0,
-    'direction': 1,
+    'port': 1,
+    'bit': 5,
+    'direction': 0,
     'polarity': 1,
     'init': 0
 }
@@ -34,6 +34,15 @@ PIN_LED4 = {
     'init': 0
 }
 
+PIN_BUTTON4 = {
+    'name': 'button4',
+    'type': 'IO',
+    'port': 1,
+    'bit': 6,
+    'direction': 1,
+    'polarity': 0,
+}
+
 def main():
 
     bus = SMBus(1)
@@ -44,9 +53,22 @@ def main():
 
     led3 = pin(specials, PIN_LED3)
     led4 = pin(specials, PIN_LED4)
+    but4 = pin(specials, PIN_BUTTON4) 
 
     specials.show_config()
     specials.show_ports()
+    while True:
+        led4.toggle()
+        time.sleep(1.0)
+
+    while True:
+        b = but4.read()
+        if b == 1:
+            led4.set()
+        else:
+            led4.clear()
+        time.sleep(0.05)
+
     while True:
         led4.set()
         print("SET")
