@@ -114,8 +114,9 @@ class adc128d818(object):
 
     def read_pin(self, port: int, bit: int, args={}) -> float:
         """ Read analog value from mapped pin. Returns 0.0 - 1.0 """
-        word = self.bus.read_word_data(self.addr, (REG_READINGS_BASE + bit))
-        return word
+        register = REG_READINGS_BASE + bit
+        b1, b0 = self.bus.read_i2c_block_data(self.addr, register, 2)
+        return ((b1 << 4) + (b0 >> 4)) / 4096  # normalize the 12 bit value
 
     def write_pin(self, port: int, bit: int, bit_value: int, args={}):
         print("Attempt to write to ADC pin")

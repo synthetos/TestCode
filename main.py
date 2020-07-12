@@ -72,10 +72,7 @@ def main():
     specials.show_ports()
     while True:
         led4.toggle()
-
-        value = adc0.read()
-        print(value)
-
+        print(adc0.read())
         time.sleep(1.0)
 
     while True:
