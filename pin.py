@@ -25,27 +25,28 @@ class pin(object):
     """ Configure and operate pin """
 
     def __init__(self, device: Callable, properties: Dict):
-        """ Instantiate and initialize a pin object according to:
+        """ Instantiate and initialize a pin object
 
-            device - must be an instantiated device object underlying the pin
+            args:
+                device - an instantiated device object to map the pin onto
 
-            config = {              # defines pin properties
-                'name': <str>       # must have a unique pin name
-                'type': <str>       # must be a VALID_PIN_TYPE
-                'port': <int>       # optional depending on device
-                'bit': <int>        # optional depending on device
-                'direction': <int>  # optional: 0 = output, 1 = input
-                'polarity': <int>   # optional: 0 = non-inverted, 1=inverted
-                'init': <int>       # optional: initial value for outputs only
-                'retry': <str>      # optional depending on device
-            }
+                properties = {          # defines pin properties
+                    'name': <str>       # pin must have a unique pin name
+                    'type': <str>       # pin must be a VALID_PIN_TYPE
+                    'port': <int>       # port on device (optional by device)
+                    'bit': <int>        # bit position in port (optional by device)
+                    'direction': <int>  # 0 = output, 1 = input (optional by device)
+                    'polarity': <int>   # 0 = non-inverted, 1=inverted (opt by device)
+                    'init': <int>       # initial value - for outputs only
+                    'retry': <str>      # optional
+                }
         """
 
         # defaults and sanity checks
         if 'name' not in properties:
-            fatal("Pin config has no name - EXITING")  # alt: 'raise RuntimeError' - but it's fatal
+            fatal("Pin has no name")  # alt: 'raise RuntimeError' - but it's fatal
         if 'type' not in properties or properties['type'] not in VALID_PIN_TYPES:
-            fatal("Pin type error for {:}".format(properties['name']))
+            fatal("Pin type error on {:}".format(properties['name']))
         properties['port'] = properties.setdefault('port', 0)
         properties['bit'] = properties.setdefault('bit', 0)
         properties['direction'] = properties.setdefault('direction', 0)
@@ -73,19 +74,19 @@ class pin(object):
         device.init_pin(properties)  # errors are fatal and handled by device
 
     def read(self):
-       return self.device.read_port_bit(self.port, self.bit)
+       return self.device.read_pin(self.port, self.bit)
+
+    def write(self, pin_value: int):
+       self.device.write_pin(self.port, self.bit, pin_value)
 
     def set(self):
-        self.device.write_port_bit(self.port, self.bit, 1)
+        self.device.write_pin(self.port, self.bit, 1)
 
     def clear(self):
-        self.device.write_port_bit(self.port, self.bit, 0)
+        self.device.write_pin(self.port, self.bit, 0)
 
     def toggle(self):
-       self.device.toggle_port_bit(self.port, self.bit)
-
-    def write(self, bit_value: int):
-       self.device.write_port_bit(self.port, self.bit, bit_value)
+       self.device.toggle_pin(self.port, self.bit)
 
 
 # Do Not Delete

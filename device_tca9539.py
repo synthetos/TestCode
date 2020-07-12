@@ -1,6 +1,6 @@
 """ device_tca9539.py
 
-    Classes for IO Expander TCA9539
+    TCA9539 IO Expander class
 
 """
 from typing import Dict, Callable
@@ -135,7 +135,7 @@ class tca9539(object):
     #
     def init_pin(self, pin: Dict):
         """ Configure and initialize a digital IO pin.
-            See pin object for properties dictionary structure 
+            See pin object for 'pin' dictionary structure 
         """
         port = pin['port']
         bit = pin['bit']
@@ -154,16 +154,16 @@ class tca9539(object):
             self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
             self.write_attr_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
-    def read_port_bit(self, port: int, bit: int, args={}) -> int:
-        """ read a bit in an input register: return 0 or 1 """
+    def read_pin(self, port: int, bit: int, args={}) -> int:
+        """ read a pin (bit) in an input register: return 0 or 1 """
         byte = self.bus.read_byte_data(self.addr, (REG_INPUT_0 + port))
         return int(byte & (1 << bit) > 0)
 
-    def write_port_bit(self, port: int, bit: int, bit_value: int, args={}):
+    def write_pin(self, port: int, bit: int, bit_value: int, args={}):
         """ Set/clear a bit in an output register """
         self.write_bit((REG_OUTPUT_0 + port), bit, bit_value, args)
 
-    def toggle_port_bit(self, port: int, bit: int, args={}):
+    def toggle_pin(self, port: int, bit: int, args={}):
         """ Toggle a bit in an output register """
         byte = self.bus.read_byte_data(self.addr, (REG_OUTPUT_0 + port))
         byte = byte ^ (1 << bit)
@@ -181,12 +181,12 @@ class tca9539(object):
             print("Failed to read port {:} err {:}".format(self.addr, err))
             return False
 
-        print("Addr: Ox{:02X} Ports Ox{:02X}{:02X}".format(self.addr, p1, p0))
+        print("Device: {:}, Addr: Ox{:02X}, Ports Ox{:02X}{:02X}".format(self.partno, self.addr, p1, p0))
 
     def show_config(self):
         try:
-            print("Addr: 0x{:02X} Config 0x{:02X}{:02X}  Invert 0x{:02X}{:02X}".format(
-                self.addr,
+            print("Device: {:}, Addr: 0x{:02X}, Config 0x{:02X}{:02X}, Invert 0x{:02X}{:02X}".format(
+                self.partno, self.addr,
                 self.bus.read_byte_data(self.addr, REG_CONFIG_1),
                 self.bus.read_byte_data(self.addr, REG_CONFIG_0),
                 self.bus.read_byte_data(self.addr, REG_INVERT_1),
