@@ -1,23 +1,13 @@
 """ device_tca9539.py
 
-    TCA9539 IO Expander class
+    TCA9539 Sixteen bit IO Expander class
 
 """
 from typing import Dict, Callable
-# import qwiic_i2c
 from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
-
-REG_INPUT_0 = 0
-REG_INPUT_1 = 1
-REG_OUTPUT_0 = 2
-REG_OUTPUT_1 = 3
-REG_INVERT_0 = 4
-REG_INVERT_1 = 5
-REG_CONFIG_0 = 6
-REG_CONFIG_1 = 7
 
 CONFIG_DIN_0 = {
     "addr": 0x74,                   # 116 decimal
@@ -59,6 +49,14 @@ CONFIG_SPECIALS = {
     "output_1": 0b00000000,
 }
 
+REG_INPUT_0 = 0
+REG_INPUT_1 = 1
+REG_OUTPUT_0 = 2
+REG_OUTPUT_1 = 3
+REG_INVERT_0 = 4
+REG_INVERT_1 = 5
+REG_CONFIG_0 = 6
+REG_CONFIG_1 = 7
 
 class tca9539(object):
 

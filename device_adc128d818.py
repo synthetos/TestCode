@@ -1,6 +1,6 @@
 """ device_adc128d818.py
 
-    ADC128D818 Analog to Digital converter class
+    ADC128D818 Eight channel Analog to Digital converter class
 
 """
 from typing import Dict, Callable
@@ -64,6 +64,7 @@ class adc128d818(object):
         except IOError as err:
             fatal("Failed to reset {:} err {:}".format(self.addr, err))
 
+    ''' unused
     def write_attr_bit(self, byte: int, bit: int, bit_value: int):
         """ Set or clear a bit in a byte variable to bit_value """
         if bit_value == 1:
@@ -98,6 +99,7 @@ class adc128d818(object):
             self.bus.write_byte_data(self.addr, register, byte | mask)
         else:
             self.bus.write_byte_data(self.addr, register, byte & ~mask)
+    '''
 
     # ################################
     # support for pin class functions
