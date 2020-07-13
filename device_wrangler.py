@@ -15,6 +15,7 @@
 
 from typing import Dict
 from smbus2 import SMBus, i2c_msg
+# import qwiic_i2c
 
 from device_tca9539 import tca9539
 from device_adc128d818 import adc128d818
@@ -80,12 +81,12 @@ class devices(object):
     def __init__(self):
 
         self.bus = SMBus(1)
-        self.device = {}
+        self.devices = {}
 
         print('Initializing Devices')
         for name, properties in DEVICE_ASSIGNMENTS.items():
-            self.device[name] = properties['device'](self.bus, properties)
-            print("  Initialized {:} - {:}".format(name, properties['comment']))
+            self.devices[name] = properties['device'](self.bus, properties)
+            print("  Initialized {:}  {:}".format(name, properties['comment']))
 
 # Do Not Delete
 if __name__ == "__main__":

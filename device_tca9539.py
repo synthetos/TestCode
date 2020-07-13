@@ -8,47 +8,6 @@ from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
-'''
-CONFIG_DIN_0 = {
-    "addr": 0x74,                   # 116 decimal
-    "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
-    "invert_1": 0b00000000,
-    "config_0": 0b11111111,         # 0 is output pin, 1 is input pin
-    "config_1": 0b11111111,
-    "output_0": 0b00000000,         # initialization/reset value - 0 is LO
-    "output_1": 0b00000000,
-}
-
-CONFIG_DIN_1 = {
-    "addr": 0x75,                   # 117 decimal
-    "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
-    "invert_1": 0b00000000,
-    "config_0": 0b11111111,         # 0 is output pin, 1 is input pin
-    "config_1": 0b11111111,
-    "output_0": 0b00000000,         # initialization/reset value - 0 is LO
-    "output_1": 0b00000000,
-}
-
-CONFIG_DOUT = {
-    "addr": 0x76,                   # 118 decimal
-    "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
-    "invert_1": 0b00000000,
-    "config_0": 0b00000000,         # 0 is output pin, 1 is input pin
-    "config_1": 0b00000000,
-    "output_0": 0b00000000,         # initialization/reset value - 0 is LO
-    "output_1": 0b00000000,
-}
-
-CONFIG_SPECIALS = {
-    "addr": 0x77,                   # 119 decimal
-    "invert_0": 0b00000000,         # 0 is non-inverted, 1 is inverted
-    "invert_1": 0b00000000,
-    "config_0": 0b00000000,         # 0 is output pin, 1 is input pin
-    "config_1": 0b00000000,
-    "output_0": 0b00000000,         # initialization/reset value - 0 is LO
-    "output_1": 0b00000000,
-}
-'''
 
 REG_INPUT_0 = 0x00
 REG_INPUT_1 = 0x01
@@ -67,46 +26,17 @@ class tca9539(object):
         self.type = 'IO'
         self.bus = bus
         self.addr = properties['addr']
-        # self.init_output_0 = properties['output_0']  # init / reset values
-        # self.init_output_1 = properties['output_1']
-        # self.init_invert_0 = properties['invert_0']
-        # self.init_invert_1 = properties['invert_1']
-        # self.init_config_0 = properties['config_0']
-        # self.init_config_1 = properties['config_1']
         self.reset()
         return
 
     def reset(self):
         try:
-            # self.bus.write_byte_data(self.addr, REG_INVERT_0, 0)
-            # self.bus.write_byte_data(self.addr, REG_INVERT_1, 0)
-            # self.bus.write_byte_data(self.addr, REG_CONFIG_0, 0)
-            # self.bus.write_byte_data(self.addr, REG_CONFIG_1, 0)
-            # self.bus.write_byte_data(self.addr, REG_OUTPUT_0, 0)
-            # self.bus.write_byte_data(self.addr, REG_OUTPUT_1, 0)
-            # data = [
-            #     self.init_output_0, self.init_output_1,
-            #     self.init_invert_0, self.init_invert_1,
-            #     self.init_config_0, self.init_config_1,
-            # ]
-            # self.bus.write_byte_data(self.addr, REG_OUTPUT_0, data)
             inits = [0, 0, 0, 0, 0, 0]  # initialize all registers but INPUT to 0
             self.bus.write_i2c_block_data(self.addr, REG_OUTPUT_0, inits)
         except IOError as err:
             fatal("Failed to reset {:} err {:}".format(self.addr, err))
 
-    '''
-    def write_attr_bit(self, byte: int, bit: int, bit_value: int):
-        """ Set or clear a bit in a byte variable to bit_value """
-        if bit_value == 1:
-            byte |= (1 << bit)
-        else:
-            byte &= ~(0 << bit)
-    '''
-
-    # ################################################
-    # ### Native byte and bit manipulation for device
-    # ################################################
+    # Native byte and bit manipulation for device
     def write_byte(self, register: int, byte: int):
         """ Write an byte value to a device register """
         try:
@@ -135,9 +65,7 @@ class tca9539(object):
         else:
             self.bus.write_byte_data(self.addr, register, byte & ~mask)
 
-    # ####################################
-    # ### Support for pin class functions
-    # ####################################
+    # Support for pin class functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a digital IO pin.
             See pin object for 'pin' dictionary structure 
@@ -149,14 +77,9 @@ class tca9539(object):
 
         # update the device registers
         self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
-        # self.write_attr_bit((REG_CONFIG_0 + port), bit, pin['direction'])
-
         self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
-        # self.write_attr_bit((REG_INVERT_0 + port), bit, pin['polarity'])
-
         if pin['direction'] == 0:  # set initial output state if output bit 
             self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
-            # self.write_attr_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
     def read_pin(self, port: int, bit: int, args={}) -> int:
         """ read a pin (bit) in an input register: return 0 or 1 """
@@ -173,13 +96,9 @@ class tca9539(object):
         byte = byte ^ (1 << bit)
         self.bus.write_byte_data(self.addr, (REG_OUTPUT_0 + port), byte)
 
-    # ######################
-    # ### display functions
-    # ######################
+    # Display functions
     def show_ports(self):
         try:
-            # p0 = self.bus.read_byte_data(self.addr, REG_INPUT_0)
-            # p1 = self.bus.read_byte_data(self.addr, REG_INPUT_1)
             p0, p1 = self.bus.read_i2c_block_data(self.addr, REG_INPUT_0, 2)
         except IOError as err:
             print("Failed to read port {:} err {:}".format(self.addr, err))

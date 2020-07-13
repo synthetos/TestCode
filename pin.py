@@ -1,18 +1,7 @@
 """ pin.py
 
     Instantiate and operate a generic pin object
-
-    Config look like:
-
-    CONFIG_PIN = {
-        "name": 'name',     # str:      name of pin - used for binding
-        "type": 'IO',       # str:      one of: 'IO', 'ADC', 'DAC'
-        "port": 0,          # int:      port or channel - if multi-port device
-        "bit": 0,           # int:      bit position in port, 0-7
-        "direction": 0,     # int:      0 = output, 1 = input
-        "polarity": 0,      # int:      0 = non-inverted, 1=inverted
-        "initial_value": 0, # int:      initial value (outputs only)
-    }
+    See pin_assignments.py for the structure of configuration dictionaries
 
 """
 from typing import Dict, Callable
@@ -25,26 +14,8 @@ class pin(object):
     """ Configure and operate pin """
 
     def __init__(self, device: Callable, properties: Dict):
-        """ Instantiate and initialize a pin object
+        """ Instantiate and initialize a pin object """
 
-            args:
-                device - an instantiated device object to map the pin onto
-
-                properties = {          # defines pin properties
-                    'name': <str>       # pin must have a unique pin name
-                    'type': <str>       # pin must be a VALID_PIN_TYPE
-                    'port': <int>       # port on device (optional by device)
-                    'bit': <int>        # bit position in port (optional by device)
-                    'direction': <int>  # 0 = output, 1 = input (optional by device)
-                    'polarity': <int>   # 0 = non-inverted, 1=inverted (opt by device)
-                    'init': <int>       # initial value - for outputs only
-                    'retry': <str>      # optional
-                }
-        """
-
-        # defaults and sanity checks
-        # if 'name' not in properties:
-        #     fatal("Pin has no name")  # alt: 'raise RuntimeError' - but it's fatal
         if 'type' not in properties or properties['type'] not in VALID_PIN_TYPES:
             fatal("Pin type error on {:}".format(properties['name']))
         properties['port'] = properties.setdefault('port', 0)
@@ -53,21 +24,20 @@ class pin(object):
         properties['polarity'] = properties.setdefault('polarity', 0)
         properties['init'] = properties.setdefault('init', 0)
         properties['retry'] = properties.setdefault('retry', 0)
+        properties['comment'] = properties.setdefault('comment', '')
 
         self.device = device
-        # self.properties = properties
-        # self.name = properties['name']
-        # self.type = properties['type']
         self.port = properties['port']
         self.bit = properties['bit']
-        # self.direction = properties['direction']
+        # self.direction = properties['direction']  # in case this becomes useful at some point
         # self.polarity = properties['polarity']
         # self.init = properties['init']
+        self.comment = properties['comment']
 
         try:
             if device.type != properties['type']:  # cross check pin type and device type
                 fatal("Pin type mismatch: device: {:}, pin: {:}".format(device.type, properties['type']))
-        except ValueError:  # +++ insert proper exception once known
+        except ValueError:  # +++ device class does not exist: insert proper exception once known
             fatal("Device not found for pin: {:}".format(properties['name']))
 
         # initialize pin using code in the underlying device

@@ -9,6 +9,7 @@
 PIN_ASSIGNMENTS = {
 
     'din0': {
+        'comment': 'Digital input channel 0',  # comment is optional
         'type': 'IO',           # one of IO, ADC, DAC 
         'device': 'digital_0',  # digital IO expander 0 (1 of 3:   i.e. 0, 1, 2)
         'port': 0,              # port 0 or 1

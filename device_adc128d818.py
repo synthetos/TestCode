@@ -8,18 +8,6 @@ from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
-'''
-CONFIG_ADC_0 = {
-    'addr': 0x1D,               # FYI: 29 decimal
-    'configuration': 0x01,      # set 0x01 after configs are done to enable conversion            
-    'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
-    'conversion_rate': 0x01,    # 0x01 is continuous conversion
-    'channel_disable': 0x00,    # 0x00 does not disable any channels
-    'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
-    'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
-}
-'''
-
 
 REG_CONFIGURATION = 0x00
 REG_INTERRUPT_STATUS = 0x01
@@ -66,14 +54,10 @@ class adc128d818(object):
         except IOError as err:
             fatal("Failed to reset {:} err {:}".format(self.addr, err))
 
-    # ################################################
-    # ### Native byte and bit manipulation for device
-    # ################################################
+    # Native byte and bit manipulation for device
     # Nothing here
 
-    # ####################################
-    # ### Support for pin class functions
-    # ####################################
+    # Support for pin class functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a ADC IO pin.
             See pin object for 'pin' dictionary structure
@@ -98,9 +82,7 @@ class adc128d818(object):
         print("Attempt to toggle ADC pin")
         return
 
-    # ######################
-    # ### display functions
-    # ######################
+    # Display functions
     def show_ports(self):
         return
 

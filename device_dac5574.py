@@ -8,13 +8,8 @@ from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
-'''
-CONFIG_DAC_1 = {
-    'addr': 0x4D,               # FYI: 77 decimal
-}
-'''
 
-# upper and lower nybles of control byte
+# upper and lower nybles of control byte (these are combined and treated as a device register)
 CONTROL_MODE = 0x10
 CONTROL_SELECT = [0x00, 0x02, 0x04, 0x06]
 
@@ -36,14 +31,10 @@ class dac5574(object):
     def reset(self):
         return
 
-    # ################################################
-    # ### Native byte and bit manipulation for device
-    # ################################################
+    # Native byte and bit manipulation for device
     # Nothing here
 
-    # ####################################
-    # ### Support for pin class functions
-    # ####################################
+    # Support for pin class functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a DAC IO pin.
             There's nothing to configure at the pin level - so just cross-check
@@ -69,9 +60,7 @@ class dac5574(object):
         print("Attempt to toggle DAC pin")
         return
 
-    # ######################
-    # ### display functions
-    # ######################
+    # Display functions
     def show_ports(self):
         return
 
