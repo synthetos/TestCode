@@ -10,7 +10,7 @@ from typing import Dict, Callable
 def fatal(message: str):
     """ Common exit for fatal errors. Aids debugging and keeps code clean """
     print("FATAL: {:} - EXITING".format(message))
-    sys.exit(-1)
+    sys.exit(1)
 
 
 # Do Not Delete

@@ -1,29 +1,29 @@
-""" main.py
+""" pin_wrangler.py
 
-    Entry point for tester
+    Instantiate pins from pin_assignments
+    Requires devices (must run device_wrangler first)
 
 """
 import sys
-import time
 from typing import Dict
 
-# import qwiic_i2c
-from smbus2 import SMBus, i2c_msg
-
-from device_wrangler import devices
-from pin_wrangler import pins
+# from smbus2 import SMBus, i2c_msg
+from pin_assignments import PIN_ASSIGNMENTS
 from pin import pin
 
-# from device_tca9539 import tca9539
-# from device_adc128d818 import adc128d818
-# from device_dac5574 import dac5574
+
+class pins(object):
+
+    def __init__(self, devices):
+
+        self.pin = {}
+        self.devices = devices
+
+        for name, properties in PIN_ASSIGNMENTS.items():
+            device = self.devices.device[properties['device']]
+            self.pin[name] = pin(device, properties)
 
 
-
-def main():
-
-    d = devices()
-    p = pins(d)
 
     '''
     bus = SMBus(1)
@@ -72,8 +72,10 @@ def main():
         led4.clear()
         print("CLEAR")
         time.sleep(1.0)
+
+    bus.close()
     '''
 
 # Do Not Delete
 if __name__ == "__main__":
-    main()
+    print("Tried to execute pin_wrangler class definition - EXITING")

@@ -43,8 +43,8 @@ class pin(object):
         """
 
         # defaults and sanity checks
-        if 'name' not in properties:
-            fatal("Pin has no name")  # alt: 'raise RuntimeError' - but it's fatal
+        # if 'name' not in properties:
+        #     fatal("Pin has no name")  # alt: 'raise RuntimeError' - but it's fatal
         if 'type' not in properties or properties['type'] not in VALID_PIN_TYPES:
             fatal("Pin type error on {:}".format(properties['name']))
         properties['port'] = properties.setdefault('port', 0)

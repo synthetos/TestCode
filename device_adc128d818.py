@@ -8,6 +8,18 @@ from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
+'''
+CONFIG_ADC_0 = {
+    'addr': 0x1D,               # FYI: 29 decimal
+    'configuration': 0x01,      # set 0x01 after configs are done to enable conversion            
+    'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
+    'conversion_rate': 0x01,    # 0x01 is continuous conversion
+    'channel_disable': 0x00,    # 0x00 does not disable any channels
+    'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
+    'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
+}
+'''
+
 
 REG_CONFIGURATION = 0x00
 REG_INTERRUPT_STATUS = 0x01
@@ -21,16 +33,6 @@ REG_BUSY_STATUS = 0x0C
 REG_READINGS_BASE = 0x20        # base register address for 8 channel readings registers
 REG_LIMIT_BASE = 0x2A           # base register address for 8 channel limit registers
 # Note: did not define manufacturer ID or revision ID registers
-
-CONFIG_ADC_0 = {
-    'addr': 0x1D,               # FYI: 29 decimal
-    'configuration': 0x01,      # set 0x01 after configs are done to enable conversion            
-    'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
-    'conversion_rate': 0x01,    # 0x01 is continuous conversion
-    'channel_disable': 0x00,    # 0x00 does not disable any channels
-    'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
-    'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
-}
 
 class adc128d818(object):
 
@@ -64,46 +66,14 @@ class adc128d818(object):
         except IOError as err:
             fatal("Failed to reset {:} err {:}".format(self.addr, err))
 
-    ''' unused
-    def write_attr_bit(self, byte: int, bit: int, bit_value: int):
-        """ Set or clear a bit in a byte variable to bit_value """
-        if bit_value == 1:
-            byte |= (1 << bit)
-        else:
-            byte &= ~(0 << bit)
+    # ################################################
+    # ### Native byte and bit manipulation for device
+    # ################################################
+    # Nothing here
 
-    def write_byte(self, register: int, byte: int):
-        """ Write an byte value to a device register """
-        try:
-            self.bus.write_byte_data(self.addr, register, byte)
-        except IOError as err:
-            fatal("Failed write_bit addr:{:02X} err {:}".format(self.addr, err))
-
-    def set_bit(self, register: int, bit: int, args={}):
-        """ Set bit 0-7 in device register (e.g. port) """
-        mask = 1 << bit
-        byte = self.bus.read_byte_data(self.addr, register)
-        self.bus.write_byte_data(self.addr, register, byte | mask)
-
-    def clear_bit(self, register: int, bit: int, args={}):
-        """ Clear bit 0-7 in device register (e.g. port) """
-        mask = 1 << bit
-        byte = self.bus.read_byte_data(self.addr, register)
-        self.bus.write_byte_data(self.addr, register, byte & ~mask)
-
-    def write_bit(self, register: int, bit: int, bit_value: int, args={}):
-        """ Set or clear a bit in device register to bit_value """
-        mask = 1 << bit
-        byte = self.bus.read_byte_data(self.addr, register)
-        if bit_value == 1:
-            self.bus.write_byte_data(self.addr, register, byte | mask)
-        else:
-            self.bus.write_byte_data(self.addr, register, byte & ~mask)
-    '''
-
-    # ################################
-    # support for pin class functions
-    #
+    # ####################################
+    # ### Support for pin class functions
+    # ####################################
     def init_pin(self, pin: Dict):
         """ Configure and initialize a ADC IO pin.
             See pin object for 'pin' dictionary structure
@@ -128,9 +98,9 @@ class adc128d818(object):
         print("Attempt to toggle ADC pin")
         return
 
-    # ###################
-    # display functions
-    #
+    # ######################
+    # ### display functions
+    # ######################
     def show_ports(self):
         return
 
@@ -147,6 +117,7 @@ class adc128d818(object):
             print("  Adv configuration: Ox{:02X}".format(self.bus.read_byte_data(self.addr, REG_ADVANCED_CONFIGURATION)))
         except IOError as err:
             print("Failed to read configs {:} err {:}".format(self.addr, err))
+
 
 # Do Not Delete
 if __name__ == "__main__":
