@@ -6,15 +6,17 @@
 import time
 from typing import Dict
 
+from device_assignments import DEVICE_ASSIGNMENTS
 from device_wrangler import devices
+from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
 from pin import pin
 
 
 def main():
 
-    d = devices()
-    p = pins(d)
+    d = devices(DEVICE_ASSIGNMENTS)
+    p = pins(d, PIN_ASSIGNMENTS)
 
     dac_value = 0.0
 

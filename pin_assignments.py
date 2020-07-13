@@ -21,7 +21,7 @@ PIN_ASSIGNMENTS = {
     },
     'din1': {
         'comment': 'Digital input channel 1',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 1,
@@ -30,7 +30,7 @@ PIN_ASSIGNMENTS = {
     },
     'din2': {
         'comment': 'Digital input channel 2',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 2,
@@ -39,7 +39,7 @@ PIN_ASSIGNMENTS = {
     },
     'din3': {
         'comment': 'Digital input channel 3',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 3,
@@ -48,7 +48,7 @@ PIN_ASSIGNMENTS = {
     },
     'din4': {
         'comment': 'Digital input channel 4',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 4,
@@ -57,7 +57,7 @@ PIN_ASSIGNMENTS = {
     },
     'din5': {
         'comment': 'Digital input channel 5',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 5,
@@ -66,7 +66,7 @@ PIN_ASSIGNMENTS = {
     },
     'din6': {
         'comment': 'Digital input channel 6',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 6,
@@ -75,7 +75,7 @@ PIN_ASSIGNMENTS = {
     },
     'din7': {
         'comment': 'Digital input channel 7',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 0,
         'bit': 7,
@@ -84,7 +84,7 @@ PIN_ASSIGNMENTS = {
     },
     'din8': {
         'comment': 'Digital input channel 8',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 0,
@@ -93,7 +93,7 @@ PIN_ASSIGNMENTS = {
     },
     'din9': {
         'comment': 'Digital input channel 9',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 1,
@@ -102,7 +102,7 @@ PIN_ASSIGNMENTS = {
     },
     'din10': {
         'comment': 'Digital input channel 10',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 2,
@@ -111,7 +111,7 @@ PIN_ASSIGNMENTS = {
     },
     'din11': {
         'comment': 'Digital input channel 11',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 3,
@@ -120,7 +120,7 @@ PIN_ASSIGNMENTS = {
     },
     'din12': {
         'comment': 'Digital input channel 12',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 4,
@@ -129,7 +129,7 @@ PIN_ASSIGNMENTS = {
     },
     'din13': {
         'comment': 'Digital input channel 13',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 5,
@@ -138,7 +138,7 @@ PIN_ASSIGNMENTS = {
     },
     'din14': {
         'comment': 'Digital input channel 14',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 6,
@@ -147,7 +147,7 @@ PIN_ASSIGNMENTS = {
     },
     'din15': {
         'comment': 'Digital input channel 15',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_0',
         'port': 1,
         'bit': 7,
@@ -167,7 +167,7 @@ PIN_ASSIGNMENTS = {
     },
     'din17': {
         'comment': 'Digital input channel 17',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 1,
@@ -176,7 +176,7 @@ PIN_ASSIGNMENTS = {
     },
     'din18': {
         'comment': 'Digital input channel 18',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 2,
@@ -185,7 +185,7 @@ PIN_ASSIGNMENTS = {
     },
     'din19': {
         'comment': 'Digital input channel 19',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 3,
@@ -194,7 +194,7 @@ PIN_ASSIGNMENTS = {
     },
     'din20': {
         'comment': 'Digital input channel 20',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 4,
@@ -203,7 +203,7 @@ PIN_ASSIGNMENTS = {
     },
     'din21': {
         'comment': 'Digital input channel 21',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 5,
@@ -212,7 +212,7 @@ PIN_ASSIGNMENTS = {
     },
     'din22': {
         'comment': 'Digital input channel 22',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 6,
@@ -221,7 +221,7 @@ PIN_ASSIGNMENTS = {
     },
     'din23': {
         'comment': 'Digital input channel 23',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 0,
         'bit': 7,
@@ -230,7 +230,7 @@ PIN_ASSIGNMENTS = {
     },
     'din24': {
         'comment': 'Digital input channel 24',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 0,
@@ -239,7 +239,7 @@ PIN_ASSIGNMENTS = {
     },
     'din25': {
         'comment': 'Digital input channel 25',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 1,
@@ -248,7 +248,7 @@ PIN_ASSIGNMENTS = {
     },
     'din26': {
         'comment': 'Digital input channel 26',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 2,
@@ -257,7 +257,7 @@ PIN_ASSIGNMENTS = {
     },
     'din27': {
         'comment': 'Digital input channel 27',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 3,
@@ -266,7 +266,7 @@ PIN_ASSIGNMENTS = {
     },
     'din28': {
         'comment': 'Digital input channel 28',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 4,
@@ -275,7 +275,7 @@ PIN_ASSIGNMENTS = {
     },
     'din29': {
         'comment': 'Digital input channel 29',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 5,
@@ -284,7 +284,7 @@ PIN_ASSIGNMENTS = {
     },
     'din30': {
         'comment': 'Digital input channel 30',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 6,
@@ -293,7 +293,7 @@ PIN_ASSIGNMENTS = {
     },
     'din31': {
         'comment': 'Digital input channel 31',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_1',
         'port': 1,
         'bit': 7,
@@ -314,7 +314,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout1': {
         'comment': 'Digital output channel 1',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 1,
@@ -324,7 +324,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout2': {
         'comment': 'Digital output channel 2',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 2,
@@ -334,7 +334,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout3': {
         'comment': 'Digital output channel 3',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 3,
@@ -344,7 +344,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout4': {
         'comment': 'Digital output channel 4',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 4,
@@ -354,7 +354,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout5': {
         'comment': 'Digital output channel 5',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 5,
@@ -364,7 +364,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout6': {
         'comment': 'Digital output channel 6',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 6,
@@ -374,7 +374,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout7': {
         'comment': 'Digital output channel 7',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 0,
         'bit': 7,
@@ -384,7 +384,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout8': {
         'comment': 'Digital output channel 8',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 0,
@@ -394,7 +394,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout9': {
         'comment': 'Digital output channel 9',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 1,
@@ -404,7 +404,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout10': {
         'comment': 'Digital output channel 10',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 2,
@@ -414,7 +414,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout11': {
         'comment': 'Digital output channel 11',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 3,
@@ -424,7 +424,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout12': {
         'comment': 'Digital output channel 12',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 4,
@@ -434,7 +434,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout13': {
         'comment': 'Digital output channel 13',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 5,
@@ -444,7 +444,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout14': {
         'comment': 'Digital output channel 14',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 6,
@@ -454,7 +454,7 @@ PIN_ASSIGNMENTS = {
     },
     'dout15': {
         'comment': 'Digital output channel 15',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'digital_2',
         'port': 1,
         'bit': 7,
@@ -465,7 +465,7 @@ PIN_ASSIGNMENTS = {
 
     # 4th tca9539 IO port expander - 16 digital outputs
     'nc_0': {  # channel 0 - not connected
-        'comment': 'Digital control bit 0 - NOT CONNECTED',
+        'comment': 'Digital control bit 0 - intentionally not connected',
         'type': 'IO',
         'device': 'control',
         'port': 0,
@@ -476,7 +476,7 @@ PIN_ASSIGNMENTS = {
     },
     'dut_power_enable_output': {  # channel 1
         'comment': 'DUT power enable output',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 1,
@@ -486,7 +486,7 @@ PIN_ASSIGNMENTS = {
     },
     'dut_current_limit_reset_output': {  # channel 2
         'comment': 'DUT current limit reset output',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 2,
@@ -496,7 +496,7 @@ PIN_ASSIGNMENTS = {
     },
     'dut_current_limit_alert_output': {  # channel 3
         'comment': 'DUT current limit alert output',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 3,
@@ -506,7 +506,7 @@ PIN_ASSIGNMENTS = {
     },
     'dut_board_loaded_input': {  # channel 4
         'comment': 'DUT board loaded input',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 4,
@@ -516,7 +516,7 @@ PIN_ASSIGNMENTS = {
     },
     'control_uncommitted_0': {  # channel 5
         'comment': 'Uncommitted control bit 0',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 5,
@@ -526,7 +526,7 @@ PIN_ASSIGNMENTS = {
     },
     'control_uncommitted_1': {  # channel 6
         'comment': 'Uncommitted control bit 1',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 6,
@@ -535,8 +535,8 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'nc_7': {  # channel 7 - not connected
-        'comment': 'Digital control bit 7 - NOT CONNECTED',
-        'type': 'IO', 
+        'comment': 'Digital control bit 7 - intentionally not connected',
+        'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 7,
@@ -545,18 +545,15 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'button1': {  # channel 8
-        'comment': 'Button #1',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 1,
         'bit': 0,
         'direction': 1,
         'polarity': 1,
-        'init': 0
     },
     'led1': {  # channel 9
-        'comment': 'LED #1',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 1,
         'bit': 1,
@@ -565,17 +562,14 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'button2': {  # channel 10
-        'comment': 'Button #2',
         'type': 'IO',
         'device': 'control',
         'port': 1,
         'bit': 2,
         'direction': 1,
         'polarity': 1,
-        'init': 0
     },
     'led2': {  # channel 11
-        'comment': 'LED #2',
         'type': 'IO',
         'device': 'control',
         'port': 1,
@@ -585,17 +579,14 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'button3': {  # channel 12
-        'comment': 'Button #3',
-        'type': 'IO', 
+        'type': 'IO',
         'device': 'control',
         'port': 1,
         'bit': 4,
         'direction': 1,
         'polarity': 1,
-        'init': 0
     },
     'led3': {  # channel 13
-        'comment': 'LED #3',
         'type': 'IO',
         'device': 'control',
         'port': 1,
@@ -605,17 +596,14 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'button4': {  # channel 14
-        'comment': 'Button #4',
         'type': 'IO',
         'device': 'control',
         'port': 1,
         'bit': 6,
         'direction': 1,
         'polarity': 1,
-        'init': 0
     },
     'led4': {  # channel 15
-        'comment': 'LED #4',
         'type': 'IO',
         'device': 'control',
         'port': 1,
@@ -625,9 +613,175 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
 
+    # #########################
+    # ### Analog Input Pins ###
+    # #########################
+
+    # 1st adc128d818 Analog to Digital converter - 8 analog inputs
+    'adc0': {                       # Configuration for ADCs
+        'type': 'ADC',              # Type must be 'ADC'
+        'device': 'analog_in0',     # name of device hosting pin
+        'bit': 0,                   # input channel
+        'normalize': 'vref'         # normalize full scale to Vref
+    },
+    'adc1': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 1,
+        'normalize': 'vref'
+    },
+    'adc2': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 2,
+        'normalize': 'vref'
+    },
+    'adc3': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 3,
+        'normalize': 'vref'
+    },
+    'adc4': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 4,
+        'normalize': 'vref'
+    },
+    'adc5': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 5,
+        'normalize': 'vref'
+    },
+    'adc6': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 6,
+        'normalize': 'vref'
+    },
+    'adc7': {
+        'type': 'ADC',
+        'device': 'analog_in0',
+        'bit': 7,
+        'normalize': 'vref'
+    },
+    # 2nd adc128d818 Analog to Digital converter - 8 analog inputs
+    'adc8': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 0,
+        'normalize': 'vref'
+    },
+    'adc9': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 1,
+        'normalize': 'vref'
+    },
+    'adc10': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 2,
+        'normalize': 'vref'
+    },
+    'adc11': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 3,
+        'normalize': 'vref'
+    },
+    'adc12': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 4,
+        'normalize': 'vref'
+    },
+    'adc13': {
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 5,
+        'normalize': 'vref'
+    },
+    'dut_v_scaled_adc_input': {
+        'comment': 'DUT voltage',
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 6,
+        'normalize': 'vref'
+    },
+    'dut_v_scaled_adc_input': {
+        'comment': 'DUT current',
+        'type': 'ADC',
+        'device': 'analog_in1',
+        'bit': 7,
+        'normalize': 'vref'
+    },
+
+    # ##########################
+    # ### Analog Output Pins ###
+    # ##########################
+
+    # 1st dac5574 Digital to Analog converter - 4 analog outputs
+    'dac1': {  # 0x4C, Vout A
+        'comment': 'DAC channel 1',
+        'type': 'DAC',
+        'device': 'analog_out0',
+        'bit': 0,
+    },
+    'dac3': {  #  0x4C, Vout B
+        'comment': 'DAC channel 3',
+        'type': 'DAC',
+        'device': 'analog_out0',
+        'bit': 1,
+    },
+    'dac0': {  #  0x4C, Vout C
+        'comment': 'DAC channel 0',
+        'type': 'DAC',
+        'device': 'analog_out0',
+        'bit': 2,
+    },
+    'dut_current_limit_voltage_dac': {  #  0x4C, Vout D
+        'comment': 'DUT current limit voltage DAC',
+        'type': 'DAC',
+        'device': 'analog_out0',
+        'bit': 3,
+    },
+
+    # 2nd dac5574 Digital to Analog converter - 4 analog outputs
+    'dac2': {  #  0x4F, Vout A
+        'comment': 'DAC channel 2',
+        'type': 'DAC',
+        'device': 'analog_out1',
+        'bit': 0,
+    },
+    'dac5': {  #  0x4F, Vout B
+        'comment': 'DAC channel 5',
+        'type': 'DAC',
+        'device': 'analog_out1',
+        'bit': 1,
+    },
+    'dac4': {  #  0x4F, Vout C
+        'comment': 'DAC channel 4',
+        'type': 'DAC',
+        'device': 'analog_out1',
+        'bit': 2,
+    },
+    'dac_nc': {  #  0x4F, Vout D
+        'comment': 'DAC channel intentionally not connected',
+        'type': 'DAC',
+        'device': 'analog_out1',
+        'bit': 3,
+    },
+
+}
+
+# Do Not Delete
+if __name__ == "__main__":
+    print("Tried to execute pin_assigmnents - EXITING")
 
 
-
+'''
     'led3': {
         'type': 'IO',
         'device': 'control',
@@ -654,18 +808,5 @@ PIN_ASSIGNMENTS = {
         'direction': 1,
         'polarity': 0,
     },
-    'adc0': {
-        'type': 'ADC',
-        'device': 'analog_in0',
-        'bit': 0,
-    },
-    'dac0': {
-        'type': 'DAC',
-        'device': 'analog_out1',
-        'bit': 0,
-    },
-}
 
-# Do Not Delete
-if __name__ == "__main__":
-    print("Tried to execute pin_assigmnents - EXITING")
+'''
