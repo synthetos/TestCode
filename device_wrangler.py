@@ -27,16 +27,16 @@ DEVICE_ASSIGNMENTS = {
         'device': tca9539,          # this is the class for the device
         'addr': 0x74,               # FYI: 116 decimal
     },
-    # 'digital_1': {
-    #     'comment': 'IO expander for digital inputs 16-31',
-    #     'device': tca9539,
-    #     'addr': 0x75,               # FYI: 117 decimal
-    # },
-    # 'digital_2'': {
-    #     'comment': 'IO expander for digital outputs 0-15',
-    #     'device': tca9539,
-    #     'addr': 0x76,               # FYI: 118 decimal
-    # },
+    'digital_1': {
+        'comment': 'IO expander for digital inputs 16-31',
+        'device': tca9539,
+        'addr': 0x75,               # FYI: 117 decimal
+    },
+    'digital_2': {
+        'comment': 'IO expander for digital outputs 0-15',
+        'device': tca9539,
+        'addr': 0x76,               # FYI: 118 decimal
+    },
     'control': {
         'comment': 'IO expander for control signals',
         'device': tca9539,
@@ -53,22 +53,22 @@ DEVICE_ASSIGNMENTS = {
         'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
         'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
     },
-    # 'analog_in1': {
-    #     'comment': 'ADC for analog inputs 8-15',
-    #     'device': adc128d818,
-    #     'addr': 0x1F,               # FYI: 31 decimal
-    #     'configuration': 0x01,      # 0x01 enables conversion            
-    #     'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
-    #     'conversion_rate': 0x01,    # 0x01 is continuous conversion
-    #     'channel_disable': 0x00,    # 0x00 does not disable any channels
-    #     'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
-    #     'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
-    # },
-    # 'analog_out0': {
-    #     'comment': 'DAC for analog outputs: chA=DAC_1, B=3, C=0 D=DUT_LIMIT_VOLTAGE',
-    #     'device': dac5574,
-    #     'addr': 0x4C,           # FYI: 76 decimal
-    # },
+    'analog_in1': {
+        'comment': 'ADC for analog inputs 8-15',
+        'device': adc128d818,
+        'addr': 0x1F,               # FYI: 31 decimal
+        'configuration': 0x01,      # 0x01 enables conversion            
+        'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
+        'conversion_rate': 0x01,    # 0x01 is continuous conversion
+        'channel_disable': 0x00,    # 0x00 does not disable any channels
+        'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
+        'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
+    },
+    'analog_out0': {
+        'comment': 'DAC for analog outputs: chA=DAC_1, B=3, C=0 D=DUT_LIMIT_VOLTAGE',
+        'device': dac5574,
+        'addr': 0x4C,           # FYI: 76 decimal
+    },
     'analog_out1': {
         'comment': 'DAC for analog outputs A=2, B=5, C=4, D=no_connect',
         'device': dac5574,
@@ -86,7 +86,7 @@ class devices(object):
         print('Initializing Devices')
         for name, properties in DEVICE_ASSIGNMENTS.items():
             self.devices[name] = properties['device'](self.bus, properties)
-            print("  Initialized {:}  {:}".format(name, properties['comment']))
+            print("  Initialized {:12}  {:}".format(name, properties['comment']))
 
 # Do Not Delete
 if __name__ == "__main__":

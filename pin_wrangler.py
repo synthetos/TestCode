@@ -21,7 +21,7 @@ class pins(object):
             device = devices.devices[properties['device']]
             self.pins[name] = pin(device, properties)        # add to dict of all pins
             object.__setattr__(self, name, self.pins[name])  # make pin accessible by p.<name>
-            print("  Initialized pin {:}  {:}".format(name, properties['comment']))
+            print("  Initialized pin {:8}  {:}".format(name, properties['comment']))
 
 # Do Not Delete
 if __name__ == "__main__":
