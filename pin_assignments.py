@@ -475,7 +475,7 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'dut_power_enable_output': {  # channel 1
-        'comment': 'DUT power enable output',
+        'comment': 'DUT power enable',
         'type': 'IO',
         'device': 'control',
         'port': 0,
@@ -485,7 +485,7 @@ PIN_ASSIGNMENTS = {
         'init': 0
     },
     'dut_current_limit_reset_output': {  # channel 2
-        'comment': 'DUT current limit reset output',
+        'comment': 'DUT current limit reset',
         'type': 'IO',
         'device': 'control',
         'port': 0,
@@ -494,18 +494,18 @@ PIN_ASSIGNMENTS = {
         'polarity': 1,
         'init': 0
     },
-    'dut_current_limit_alert_output': {  # channel 3
-        'comment': 'DUT current limit alert output',
+    'dut_current_limit_alert_input': {  # channel 3
+        'comment': 'DUT current limit alert',
         'type': 'IO',
         'device': 'control',
         'port': 0,
         'bit': 3,
-        'direction': 0,
+        'direction': 1,
         'polarity': 1,
         'init': 0
     },
     'dut_board_loaded_input': {  # channel 4
-        'comment': 'DUT board loaded input',
+        'comment': 'DUT loaded interlock signal from pogo board',
         'type': 'IO',
         'device': 'control',
         'port': 0,
@@ -746,8 +746,8 @@ PIN_ASSIGNMENTS = {
         'bit': 2,
         'scale': 3.3
     },
-    'dut_current_limit_voltage_dac': {  # 0x4C, Vout D
-        'comment': 'DUT current limit voltage output',
+    'dut_current_limit_output': {   # 0x4C, Vout D
+        'comment': 'DUT current limit output',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 3,

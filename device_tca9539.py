@@ -83,7 +83,7 @@ class tca9539(object):
             self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
     def read_pin(self, port: int, bit: int, args={}) -> int:
-        """ read a pin (bit) in an input register: return 0 or 1 """
+        """ read a input pin (bit) or return value of output pin """
         byte = self.bus.read_byte_data(self.addr, (REG_INPUT_0 + port))
         return int(byte & (1 << bit) > 0)
 
