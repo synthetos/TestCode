@@ -4,11 +4,11 @@
 
 """
 from typing import Dict, Callable
-from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
 
+# register assignments
 REG_INPUT_0 = 0x00
 REG_INPUT_1 = 0x01
 REG_OUTPUT_0 = 0x02
@@ -18,13 +18,14 @@ REG_INVERT_1 = 0x05
 REG_CONFIG_0 = 0x06
 REG_CONFIG_1 = 0x07
 
+
 class tca9539(object):
 
     def __init__(self, bus: Callable, properties: Dict):
 
-        self.partno = 'tca9539'
-        self.type = 'IO'
         self.bus = bus
+        self.type = 'IO'
+        self.partno = 'tca9539'
         self.addr = properties['addr']
         self.reset()
         return
@@ -65,10 +66,10 @@ class tca9539(object):
         else:
             self.bus.write_byte_data(self.addr, register, byte & ~mask)
 
-    # Support for pin class functions
+    # Support for pin functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a digital IO pin.
-            See pin object for 'pin' dictionary structure 
+            See pin object for 'pin' dictionary structure
         """
         port = pin['port']
         bit = pin['bit']
@@ -78,7 +79,7 @@ class tca9539(object):
         # update the device registers
         self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
         self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
-        if pin['direction'] == 0:  # set initial output state if output bit 
+        if pin['direction'] == 0:  # set initial output state if output bit
             self.write_bit((REG_OUTPUT_0 + port), bit, pin['init'])
 
     def read_pin(self, port: int, bit: int, args={}) -> int:

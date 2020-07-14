@@ -34,7 +34,7 @@ DEVICE_ASSIGNMENTS = {
         'comment': 'ADC for analog inputs 0-7 (no interrutps yet)',
         'device': adc128d818,
         'addr': 0x1D,               # FYI: 29 decimal
-        'configuration': 0x01,      # 0x01 enables conversion            
+        'configuration': 0x01,      # 0x01 enables conversion
         'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
         'conversion_rate': 0x01,    # 0x01 is continuous conversion
         'channel_disable': 0x00,    # 0x00 does not disable any channels
@@ -45,7 +45,7 @@ DEVICE_ASSIGNMENTS = {
         'comment': 'ADC for analog inputs 8-15',
         'device': adc128d818,
         'addr': 0x1F,               # FYI: 31 decimal
-        'configuration': 0x01,      # 0x01 enables conversion            
+        'configuration': 0x01,      # 0x01 enables conversion
         'interrupt_mask': 0xFF,     # 0xFF disables all interrupts (for now)
         'conversion_rate': 0x01,    # 0x01 is continuous conversion
         'channel_disable': 0x00,    # 0x00 does not disable any channels

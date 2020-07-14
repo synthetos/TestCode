@@ -4,11 +4,12 @@
 
 """
 from typing import Dict, Callable
-from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
 
+# register assignments
+# Note: did not define manufacturer ID or revision ID registers
 REG_CONFIGURATION = 0x00
 REG_INTERRUPT_STATUS = 0x01
 REG_INTERRUPT_MASK = 0x02
@@ -20,15 +21,15 @@ REG_ADVANCED_CONFIGURATION = 0x0B
 REG_BUSY_STATUS = 0x0C
 REG_READINGS_BASE = 0x20        # base register address for 8 channel readings registers
 REG_LIMIT_BASE = 0x2A           # base register address for 8 channel limit registers
-# Note: did not define manufacturer ID or revision ID registers
+
 
 class adc128d818(object):
 
     def __init__(self, bus: Callable, properties: Dict):
 
-        self.partno = 'adc128d818'
-        self.type = 'ADC'
         self.bus = bus
+        self.type = 'ADC'
+        self.partno = 'adc128d818'
         self.addr = properties['addr']
         self.configuration = properties['configuration']  # init / reset values shadow properties dict
         self.interrupt_mask = properties['interrupt_mask']
@@ -38,18 +39,19 @@ class adc128d818(object):
         self.advanced_configuration = properties['advanced_configuration']
 
         if (self.advanced_configuration & 0x01) == 1:
-            self.vref = 3.3  # vref used for scaling input values
+            self.vref = 3.3     # if bit is set vref is used for ADC reference
         else:
-            self.vref = 2.56
+            self.vref = 2.56    # if bit is not set internal 2.56v reference is used
         self.reset()
         return
 
     def reset(self):
         """ Reset device to initial conditions as per self.init... variables
-            Start by writing 0x80 to CONFIGURATION, load config, then set CONFIGURATION 
+            Start by writing 0x80 to CONFIGURATION, which initializes the device,
+            then load the configurations, then set CONFIGURATION register to START value
         """
         try:
-            self.bus.write_byte_data(self.addr, REG_CONFIGURATION, 0x80)
+            self.bus.write_byte_data(self.addr, REG_CONFIGURATION, 0x80)  # initialize
             self.bus.write_byte_data(self.addr, REG_INTERRUPT_MASK, self.interrupt_mask)
             self.bus.write_byte_data(self.addr, REG_CONVERSION_RATE, self.conversion_rate)
             self.bus.write_byte_data(self.addr, REG_CHANNEL_DISABLE, self.channel_disable)
@@ -59,10 +61,10 @@ class adc128d818(object):
         except IOError as err:
             fatal("Failed to reset {:} err {:}".format(self.addr, err))
 
-    # Native byte and bit manipulation for device
-    # Nothing here
+    # Native byte and bit manipulation for device registers
+    #    Nothing here - see tca9539 if needed
 
-    # Support for pin class functions
+    # Support for pin functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a ADC IO pin.
             See pin object for 'pin' dictionary structure
@@ -74,10 +76,14 @@ class adc128d818(object):
             fatal("Pin misconfigation: {:}".format(pin['name']))
 
     def read_pin(self, port: int, bit: int, args={}) -> float:
-        """ Read analog value from mapped pin. Returns 0.0 - 1.0 """
+        """ Read analog value from mapped pin. Returns scaled value """
         register = REG_READINGS_BASE + bit
+        scale = args.setdefault('scale', 1.0)
         b1, b0 = self.bus.read_i2c_block_data(self.addr, register, 2)
-        return ((b1 << 4) + (b0 >> 4)) / 4096  # normalize the 12 bit value
+        value = ((b1 << 4) + (b0 >> 4)) / 4096  # normalize the 12 bit value to 1.0
+        if scale == 'vref':
+            scale = self.vref
+        return value * scale
 
     def write_pin(self, port: int, bit: int, bit_value: int, args={}):
         print("Attempt to write to ADC pin")

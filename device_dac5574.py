@@ -4,14 +4,15 @@
 
 """
 from typing import Dict, Callable
-from smbus2 import SMBus, i2c_msg
 
 from util import fatal
 
 
-# upper and lower nybles of control byte (these are combined and treated as a device register)
-CONTROL_MODE = 0x10
-CONTROL_SELECT = [0x00, 0x02, 0x04, 0x06]
+# Control byte: upper and lower nybles of control byte
+#   these are combined and treated as if it were a device register address
+CONTROL_MODE = 0x10  # Mode 01 - update addressed channel immediately
+CONTROL_SELECT = [0x00, 0x02, 0x04, 0x06]  # Channels A, B, C, D
+
 
 class dac5574(object):
     """
@@ -21,9 +22,9 @@ class dac5574(object):
     """
     def __init__(self, bus: Callable, properties: Dict):
 
-        self.partno = 'dac5574'
-        self.type = 'DAC'
         self.bus = bus
+        self.type = 'DAC'
+        self.partno = 'dac5574'
         self.addr = properties['addr']
         self.reset()
         return
@@ -31,10 +32,10 @@ class dac5574(object):
     def reset(self):
         return
 
-    # Native byte and bit manipulation for device
-    # Nothing here
+    # Native byte and bit manipulation for device registers
+    #    Nothing here - see tca9539 if needed
 
-    # Support for pin class functions
+    # Support for pin functions
     def init_pin(self, pin: Dict):
         """ Configure and initialize a DAC IO pin.
             There's nothing to configure at the pin level - so just cross-check
@@ -48,19 +49,23 @@ class dac5574(object):
         return
 
     def write_pin(self, port: int, bit: int, pin_value: int, args={}):
-        """ Write analog value to mapped pin 
-        
-            pin_value provided as 0.0 - 1.0
+        """ Write analog value to mapped pin
+
+            pin_value is provided as a scaled number relative to 'scale'.
+            E.g. if scale == 3.3, then 1.65 will output 50% of DAC range
+            (which happens to be 1.65 volts).
+            Scale default is 3.3
         """
+        scale = args.setdefault('scale', 3.3)
+        value = int((pin_value / scale) * 255)
         control = CONTROL_MODE + CONTROL_SELECT[bit]
-        value = int(pin_value * 255)
         self.bus.write_i2c_block_data(self.addr, control, [value, 0])
 
     def toggle_pin(self, port: int, bit: int, args={}):
         print("Attempt to toggle DAC pin")
         return
 
-    # Display functions
+    # Display functions (nothing to see here, move along)
     def show_ports(self):
         return
 

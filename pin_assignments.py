@@ -11,7 +11,7 @@ PIN_ASSIGNMENTS = {
     # 1st tca9539 IO port expander - 16 digital inputs
     'din0': {
         'comment': 'Digital input channel 0',  # comment is optional
-        'type': 'IO',           # one of IO, ADC, DAC 
+        'type': 'IO',           # one of IO, ADC, DAC
         'device': 'digital_0',  # digital IO expander 0 (1 of 3:   i.e. 0, 1, 2)
         'port': 0,              # port 0 or 1
         'bit': 0,               # bits 0 - 7
@@ -310,7 +310,7 @@ PIN_ASSIGNMENTS = {
         'bit': 0,
         'direction': 0,
         'polarity': 1,
-        'init': 0 
+        'init': 0
     },
     'dout1': {
         'comment': 'Digital output channel 1',
@@ -472,7 +472,7 @@ PIN_ASSIGNMENTS = {
         'bit': 0,
         'direction': 0,
         'polarity': 1,
-        'init': 0 
+        'init': 0
     },
     'dut_power_enable_output': {  # channel 1
         'comment': 'DUT power enable output',
@@ -705,15 +705,15 @@ PIN_ASSIGNMENTS = {
         'bit': 5,
         'scale': 'vref'
     },
-    'dut_v_scaled_adc_input': {
-        'comment': 'DUT voltage',
+    'dut_scaled_voltage_input': {
+        'comment': 'DUT scaled voltage input',
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 6,
         'scale': 'vref'
     },
-    'dut_v_scaled_adc_input': {
-        'comment': 'DUT current',
+    'dut_scaled_current_input': {
+        'comment': 'DUT scaled current input',
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 7,
@@ -725,29 +725,29 @@ PIN_ASSIGNMENTS = {
     # ##########################
 
     # 1st dac5574 Digital to Analog converter - 4 analog outputs
-    'dac1': {  # 0x4C, Vout A
+    'dac1': {                       # 0x4C, Vout A
         'comment': 'DAC channel 1',  # optional
         'type': 'DAC',              # must be 'DAC'
         'device': 'analog_out0',    # name of device hosting pin
         'bit': 0,                   # output channel
         'scale': 3.3                # value for full scale output
     },
-    'dac3': {  #  0x4C, Vout B
+    'dac3': {                       # 0x4C, Vout B
         'comment': 'DAC channel 3',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 1,
         'scale': 3.3
     },
-    'dac0': {  #  0x4C, Vout C
+    'dac0': {                       # 0x4C, Vout C
         'comment': 'DAC channel 0',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 2,
         'scale': 3.3
     },
-    'dut_current_limit_voltage_dac': {  #  0x4C, Vout D
-        'comment': 'DUT current limit voltage DAC',
+    'dut_current_limit_voltage_dac': {  # 0x4C, Vout D
+        'comment': 'DUT current limit voltage output',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 3,
@@ -755,28 +755,28 @@ PIN_ASSIGNMENTS = {
     },
 
     # 2nd dac5574 Digital to Analog converter - 4 analog outputs
-    'dac2': {  #  0x4F, Vout A
+    'dac2': {                       # 0x4F, Vout A
         'comment': 'DAC channel 2',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 0,
         'scale': 3.3
     },
-    'dac5': {  #  0x4F, Vout B
+    'dac5': {                       # 0x4F, Vout B
         'comment': 'DAC channel 5',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 1,
         'scale': 3.3
     },
-    'dac4': {  #  0x4F, Vout C
+    'dac4': {                       # 0x4F, Vout C
         'comment': 'DAC channel 4',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 2,
         'scale': 3.3
     },
-    'dac_nc': {  #  0x4F, Vout D
+    'dac_nc': {                     # 0x4F, Vout D
         'comment': 'DAC channel intentionally not connected',
         'type': 'DAC',
         'device': 'analog_out1',
@@ -789,34 +789,3 @@ PIN_ASSIGNMENTS = {
 # Do Not Delete
 if __name__ == "__main__":
     print("Tried to execute pin_assigmnents - EXITING")
-
-
-'''
-    'led3': {
-        'type': 'IO',
-        'device': 'control',
-        'port': 1,
-        'bit': 5,
-        'direction': 0,
-        'polarity': 1,
-        'init': 0
-    },
-    'led4': {
-        'type': 'IO',
-        'device': 'control',
-        'port': 1,
-        'bit': 7,
-        'direction': 0,
-        'polarity': 1,
-        'init': 0
-    },
-    'button4': {
-        'type': 'IO',
-        'device': 'control',
-        'port': 1,
-        'bit': 6,
-        'direction': 1,
-        'polarity': 0,
-    },
-
-'''
