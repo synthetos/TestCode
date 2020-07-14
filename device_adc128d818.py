@@ -36,6 +36,11 @@ class adc128d818(object):
         self.channel_disable = properties['channel_disable']
         self.deep_shutdown = properties['deep_shutdown']
         self.advanced_configuration = properties['advanced_configuration']
+
+        if (self.advanced_configuration & 0x01) == 1:
+            self.vref = 3.3  # vref used for scaling input values
+        else:
+            self.vref = 2.56
         self.reset()
         return
 

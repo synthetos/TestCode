@@ -622,100 +622,102 @@ PIN_ASSIGNMENTS = {
         'type': 'ADC',              # Type must be 'ADC'
         'device': 'analog_in0',     # name of device hosting pin
         'bit': 0,                   # input channel
-        'normalize': 'vref'         # normalize full scale to Vref
+        'scale': 'vref'             # full scale input returns: Vref (i.e. returns input volts)
+        # 'scale': 1.0              # full scale input returns: 1.0 (by way of example)
+        # 'scale': 100.0            # full scale input returns: 100 (by way of example)
     },
     'adc1': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 1,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc2': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 2,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc3': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 3,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc4': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 4,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc5': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 5,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc6': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 6,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc7': {
         'type': 'ADC',
         'device': 'analog_in0',
         'bit': 7,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     # 2nd adc128d818 Analog to Digital converter - 8 analog inputs
     'adc8': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 0,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc9': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 1,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc10': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 2,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc11': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 3,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc12': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 4,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'adc13': {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 5,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'dut_v_scaled_adc_input': {
         'comment': 'DUT voltage',
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 6,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
     'dut_v_scaled_adc_input': {
         'comment': 'DUT current',
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 7,
-        'normalize': 'vref'
+        'scale': 'vref'
     },
 
     # ##########################
@@ -724,28 +726,32 @@ PIN_ASSIGNMENTS = {
 
     # 1st dac5574 Digital to Analog converter - 4 analog outputs
     'dac1': {  # 0x4C, Vout A
-        'comment': 'DAC channel 1',
-        'type': 'DAC',
-        'device': 'analog_out0',
-        'bit': 0,
+        'comment': 'DAC channel 1',  # optional
+        'type': 'DAC',              # must be 'DAC'
+        'device': 'analog_out0',    # name of device hosting pin
+        'bit': 0,                   # output channel
+        'scale': 3.3                # value for full scale output
     },
     'dac3': {  #  0x4C, Vout B
         'comment': 'DAC channel 3',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 1,
+        'scale': 3.3
     },
     'dac0': {  #  0x4C, Vout C
         'comment': 'DAC channel 0',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 2,
+        'scale': 3.3
     },
     'dut_current_limit_voltage_dac': {  #  0x4C, Vout D
         'comment': 'DUT current limit voltage DAC',
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 3,
+        'scale': 3.3
     },
 
     # 2nd dac5574 Digital to Analog converter - 4 analog outputs
@@ -754,24 +760,28 @@ PIN_ASSIGNMENTS = {
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 0,
+        'scale': 3.3
     },
     'dac5': {  #  0x4F, Vout B
         'comment': 'DAC channel 5',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 1,
+        'scale': 3.3
     },
     'dac4': {  #  0x4F, Vout C
         'comment': 'DAC channel 4',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 2,
+        'scale': 3.3
     },
     'dac_nc': {  #  0x4F, Vout D
         'comment': 'DAC channel intentionally not connected',
         'type': 'DAC',
         'device': 'analog_out1',
         'bit': 3,
+        'scale': 3.3
     },
 
 }
