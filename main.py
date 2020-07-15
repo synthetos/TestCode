@@ -12,14 +12,18 @@ from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
 from pin import pin
 
+from dut_power import dut_power
+
 
 def main():
 
     d = devices(DEVICE_ASSIGNMENTS)
     p = pins(d, PIN_ASSIGNMENTS)
 
-    dac_value = 0.0
+    dut = dut_power(p)
+    dut.power_on()
 
+    dac_value = 0.0
     while True:
         p.led4.toggle()
         print(p.adc0.read())

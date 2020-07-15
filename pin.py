@@ -44,8 +44,8 @@ class pin(object):
     def write(self, pin_value: int):
         self.device.write_pin(self.port, self.bit, pin_value, self.args)
 
-    def set(self):
-        self.device.write_pin(self.port, self.bit, 1, self.args)
+    def set(self, pin_value=1):  # polymorphic for digital and analog set
+        self.device.write_pin(self.port, self.bit, pin_value, self.args)
 
     def clear(self):
         self.device.write_pin(self.port, self.bit, 0, self.args)

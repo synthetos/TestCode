@@ -9,6 +9,8 @@ from device_tca9539 import tca9539
 from device_adc128d818 import adc128d818
 from device_dac5574 import dac5574
 
+ADC_VREF = 0x01   # use 0x01 for 3.3v vref, 0x00 for internal 2.56v vref
+
 DEVICE_ASSIGNMENTS = {
     'digital_0': {
         'comment': 'IO expander for digital inputs 0-15',
@@ -39,7 +41,7 @@ DEVICE_ASSIGNMENTS = {
         'conversion_rate': 0x01,    # 0x01 is continuous conversion
         'channel_disable': 0x00,    # 0x00 does not disable any channels
         'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
-        'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
+        'advanced_configuration': 0x02 | ADC_VREF  # 0x02 = Mode 1
     },
     'analog_in1': {
         'comment': 'ADC for analog inputs 8-15',
@@ -50,7 +52,7 @@ DEVICE_ASSIGNMENTS = {
         'conversion_rate': 0x01,    # 0x01 is continuous conversion
         'channel_disable': 0x00,    # 0x00 does not disable any channels
         'deep_shutdown': 0x00,      # 0x00 does not ask for deep shutdown
-        'advanced_configuration': 0x02  # 0x02 = Mode 1, internal reference (use 0x03 for ext ref)
+        'advanced_configuration': 0x02 | ADC_VREF  # 0x02 = Mode 1
     },
     'analog_out0': {
         'comment': 'DAC for analog outputs: chA=DAC_1, B=3, C=0 D=DUT_LIMIT_VOLTAGE',

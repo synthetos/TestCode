@@ -481,7 +481,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 1,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,  # non-inverted: set() to enable
         'init': 0
     },
     'dut_current_limit_reset_output': {  # channel 2
@@ -491,7 +491,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 2,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,  # non-inverted: set() selects latched ALERT mode
         'init': 0
     },
     'dut_current_limit_alert_input': {  # channel 3
@@ -501,7 +501,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 1,  # inverted: Over-current ALERT drives pin HIGH 
         'init': 0
     },
     'dut_board_loaded_input': {  # channel 4
@@ -751,7 +751,7 @@ PIN_ASSIGNMENTS = {
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 3,
-        'scale': 3.3
+        'scale': 16.5  # normalizes set(n) current limit to Amps
     },
 
     # 2nd dac5574 Digital to Analog converter - 4 analog outputs
