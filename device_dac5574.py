@@ -26,8 +26,8 @@ class dac5574(object):
         self.type = 'DAC'
         self.partno = 'dac5574'
         self.addr = properties['addr']
+        self.shadow = [-2, -2, -2, -2]  # shadow DAC values: -2 means initialized but no pin
         self.reset()
-        return
 
     def reset(self):
         return
@@ -43,10 +43,11 @@ class dac5574(object):
         bit = pin['bit']
         if pin['type'] != 'DAC' or bit not in list(range(0, 4)):
             fatal("Pin misconfigation: {:}".format(pin['name']))
+        self.shadow[bit] = -1  # -1 means pin iti but no value written yet
 
     def read_pin(self, port: int, bit: int, args={}):
-        print("Attempt to read DAC pin")
-        return
+        """ Return previously written value (shadow) or -1 if unwritten """
+        return self.shadow[bit]
 
     def write_pin(self, port: int, bit: int, pin_value: int, args={}):
         """ Write analog value to mapped pin
@@ -60,10 +61,11 @@ class dac5574(object):
         value = int((pin_value / scale) * 255)
         control = CONTROL_MODE + CONTROL_SELECT[bit]
         self.bus.write_i2c_block_data(self.addr, control, [value, 0])
+        self.shadow[bit] = pin_value
 
     def toggle_pin(self, port: int, bit: int, args={}):
         print("Attempt to toggle DAC pin")
-        return
+        return None
 
     # Display functions (nothing to see here, move along)
     def show_ports(self):

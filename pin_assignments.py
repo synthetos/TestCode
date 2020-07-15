@@ -710,14 +710,15 @@ PIN_ASSIGNMENTS = {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 6,
-        'scale': 'vref'
+        'scale': 27.05   # set to read DUT scaled voltage as volts
     },
     'dut_scaled_current_input': {
         'comment': 'DUT scaled current input',
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 7,
-        'scale': 'vref'
+        'scale': 'vref'   # set to read DUT current as true voltage
+        # 'scale': 13.5   # set to read DUT current as amps @ 24 volts input
     },
 
     # ##########################

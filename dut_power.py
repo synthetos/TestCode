@@ -46,20 +46,24 @@ class dut_power(object):
         self.scaled_current = pins.dut_scaled_current_input
         self.current_limit = pins.dut_current_limit_output
         self.reset()
-        return
 
     def reset(self):
-        self.power_enable.clear()            # disable output voltage
+        self.power_enable.clear()           # disable output voltage (drive low)
 
-        self.current_limit_reset.clear()     # clear any ALERT condition
-        self.current_limit_reset.set()       # ...and enable latched mode
+        self.current_limit_reset.clear()    # clear any ALERT condition in INA301
+        # self.current_limit_reset.set()      # ...and enable latched alert mode
 
         self.current_limit.set(INITIAL_CURRENT_LIMIT)
-        return
 
     def set_current_limit(self, current_limit: float):
         """ set current limit value """
         self.current_limit.set(current_limit)
+
+    def clear_alarm(self):
+        """ Reset current limit and return power to OFF condition """
+        self.power_enable.clear()           # disable power
+        self.current_limit_reset.clear()    # clear ALERT condition in INA301
+        self.current_limit_reset.set()      # ...and enable latched alert mode
 
     def power_on(self):
         """ Turn power on. Obeys DUT_loaded interlock signal """
@@ -68,10 +72,6 @@ class dut_power(object):
     def power_off(self):
         """ turn power off """
         self.power_enable.clear()
-
-    def reset_current_limit_alarm(self):
-        """ Reset current limit and return power to OFF condition """
-        return
 
     def read(self) -> Dict:
         """ Return all values """
@@ -86,13 +86,25 @@ class dut_power(object):
         }
         return values
 
-    def show_power(self):
+    def show(self):
+        print("enable:{:}, loaded:{:}, volts:{:5.2f}, amps:{:6.3f}, limit:{:5.2f}, alarm:{:}, reset:{:}".format(
+            self.power_enable.read(),
+            self.board_loaded.read(),
+            self.scaled_voltage.read(),
+            self.scaled_current.read(),
+            self.current_limit.read(),
+            self.current_limit_alert.read(),
+            self.current_limit_reset.read()
+            )
+        )
+
+    def show_long(self):
         print("DUT Power Management")
         print("  DUT loaded               {:1d}".format(self.board_loaded.read()))
         print("  DUT power enable         {:1d}".format(self.power_enable.read()))
-        print("  DUT voltage              {:2.3f}V".format(self.scaled_voltage.read()))
-        print("  DUT current              {:2.3f}A".format(self.scaled_current.read()))
-        print("  DUT current limit        {:2,3f}A".format(self.current_limit.read()))
+        print("  DUT voltage              {:2.2f} volts".format(self.scaled_voltage.read()))
+        print("  DUT current              {:2.2f} amps".format(self.scaled_current.read()))
+        print("  DUT current limit        {:2.2f} amps".format(self.current_limit.read()))
         print("  DUT current limit alert  {:1d}".format(self.current_limit_alert.read()))
         print("  DUT current limit reset  {:1d}".format(self.current_limit_reset.read()))
 

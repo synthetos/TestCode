@@ -22,16 +22,25 @@ def main():
 
     dut = dut_power(p)
     dut.power_on()
+    dut.show()
 
     dac_value = 0.0
     while True:
-        p.led4.toggle()
-        print(p.adc0.read())
+        # p.led4.toggle()
+        # dac_value += 0.005
+        # p.dac0.write(dac_value)
+        # print(p.adc0.read())
 
-        dac_value += 0.005
-        p.dac0.write(dac_value)
+        # dut.clear_alarm()
+        dut.power_on()
+        dut.show()
+        p.led4.set()
+        time.sleep(4.0)
 
-        time.sleep(0.1)
+        dut.power_off()
+        dut.show()
+        p.led4.clear()
+        time.sleep(4.0)
 
     while True:
         b = p.but4.read()

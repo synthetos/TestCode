@@ -87,11 +87,11 @@ class adc128d818(object):
 
     def write_pin(self, port: int, bit: int, bit_value: int, args={}):
         print("Attempt to write to ADC pin")
-        return
+        return None
 
     def toggle_pin(self, port: int, bit: int, args={}):
         print("Attempt to toggle ADC pin")
-        return
+        return None
 
     # Display functions
     def show_ports(self):
