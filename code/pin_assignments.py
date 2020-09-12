@@ -4,6 +4,7 @@
     This file can ultimately be replaced with an external YAML file
     See first occurrence of each type for setup details
 
+    Setup for Tester Baseboard revB
 """
 
 PIN_ASSIGNMENTS = {
@@ -501,7 +502,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,  # inverted: Over-current ALERT drives pin HIGH 
+        'polarity': 1,  # inverted: Over-current ALERT drives pin HIGH
         'init': 0
     },
     'dut_board_loaded_input': {  # channel 4

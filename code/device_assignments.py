@@ -3,6 +3,8 @@
     This file can ultimately be supplemented with an external YAML file
     NB: Python 3 preserves ordering in dictionaries - should this ever become important here.
 
+    Setup for Tester Baseboard revB with default I2C addresses
+
 """
 
 from device_tca9539 import tca9539

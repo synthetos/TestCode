@@ -8,7 +8,7 @@ from typing import Dict, Callable
 
 import gpiozero as gpio
 
-# Why the fuck I have to use an 'LED' to configure a pin is beyond me, but...""
+# Why the hell I have to use an 'LED' to configure a pin is beyond me, but...""
 RESET = gpio.LED("GPIO5", active_high=False)
 INTERRUPT = gpio.LED("GPIO6", active_high=False)
 

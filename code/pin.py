@@ -2,10 +2,9 @@
 
     Instantiate and operate a generic pin object
     See pin_assignments.py for the structure of configuration dictionaries
-
 """
-from typing import Dict, Callable
 
+from typing import Dict, Callable
 from util import fatal
 
 VALID_PIN_TYPES = ['IO', 'ADC', 'DAC']
@@ -38,7 +37,7 @@ class pin(object):
         # initialize pin using code in the underlying device
         device.init_pin(properties)  # errors are fatal and handled by device
 
-    def read(self):
+    def read(self, pin_value=None):
         return self.device.read_pin(self.port, self.bit, self.args)
 
     def write(self, pin_value: int):
@@ -47,10 +46,10 @@ class pin(object):
     def set(self, pin_value=1):  # polymorphic for digital and analog set
         self.device.write_pin(self.port, self.bit, pin_value, self.args)
 
-    def clear(self):
+    def clear(self, pin_value=0):
         self.device.write_pin(self.port, self.bit, 0, self.args)
 
-    def toggle(self):
+    def toggle(self, pin_value=None):
         self.device.toggle_pin(self.port, self.bit, self.args)
 
 

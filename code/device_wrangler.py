@@ -4,9 +4,8 @@
 
 """
 
-from typing import Dict
+# from typing import Dict
 from smbus2 import SMBus, i2c_msg
-# import qwiic_i2c
 
 
 class devices(object):

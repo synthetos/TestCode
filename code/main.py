@@ -4,14 +4,15 @@
 
 """
 import time
-from typing import Dict
+# from typing import Dict
 
 from device_assignments import DEVICE_ASSIGNMENTS
 from device_wrangler import devices
 from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
+from test_sequencer import test_sequence
 from util import reset
-from pin import pin
+# from pin import pin
 
 from dut_power import dut_power
 
@@ -19,34 +20,40 @@ from dut_power import dut_power
 def main():
 
     reset()
-    d = devices(DEVICE_ASSIGNMENTS)
-    p = pins(d, PIN_ASSIGNMENTS)
+    dev = devices(DEVICE_ASSIGNMENTS)
+    pin = pins(dev, PIN_ASSIGNMENTS)
 
-    dut = dut_power(p)
+    dut = dut_power(pin)
     dut.power_on()
     dut.show()
 
     dac_value = 1.28
-    p.dac0.write(dac_value)
-    p.dac1.write(dac_value)
-    p.dac2.write(dac_value)
-    p.dac3.write(dac_value)
+    pin.dac0.write(dac_value)
+    pin.dac1.write(dac_value)
+    pin.dac2.write(dac_value)
+    pin.dac3.write(dac_value)
 
     for i in range(0, 5):
-        p.dout0.toggle()
-        p.dout1.toggle()
-        p.led4.toggle()
+        pin.dout0.toggle()
+        pin.dout1.toggle()
+        pin.led4.toggle()
 
         dac_value += 0.1
         if dac_value > 3.3:
             dac_value = 0.0
-        p.dac0.write(dac_value)
+        pin.dac0.write(dac_value)
 
         print("din0: {:}, adc0: {:6.4f}, dac0 {:4.3f}".format(
-            p.din1.read(),
-            p.adc0.read(),
+            pin.din1.read(),
+            pin.adc0.read(),
             dac_value))
         time.sleep(1.0)
+
+    tests = test_sequence(pin, {})
+    while True:
+        result = tests.next()
+        if result is None:    # tests are complete
+            break
 
     reset()
 
