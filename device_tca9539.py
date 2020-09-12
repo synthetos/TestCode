@@ -27,6 +27,8 @@ class tca9539(object):
         self.type = 'IO'
         self.partno = 'tca9539'
         self.addr = properties['addr']
+        self.port0_pin_state = [-1] * 8   # initialize pin state list to uninitialized 
+        self.port1_pin_state = [-1] * 8
         self.reset()
         return
 
@@ -73,10 +75,8 @@ class tca9539(object):
         """
         port = pin['port']
         bit = pin['bit']
-        if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
-            fatal("Pin misconfigation: {:}".format(pin['name']))
-
-        # update the device registers
+        # if pin['type'] != 'IO' or port not in [0, 1] or bit not in list(range(0, 8)):
+        #     fatal("Pin misconfigation: {:}".format(pin['name']))
         self.write_bit((REG_CONFIG_0 + port), bit, pin['direction'])
         self.write_bit((REG_INVERT_0 + port), bit, pin['polarity'])
         if pin['direction'] == 0:  # set initial output state if output bit

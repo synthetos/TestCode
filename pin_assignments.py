@@ -16,7 +16,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,              # port 0 or 1
         'bit': 0,               # bits 0 - 7
         'direction': 1,         # 0=output, 1=input
-        'polarity': 1,          # 0=non-inverted, 1=inverted
+        'polarity': 0,          # 0=non-inverted, 1=inverted
         # 'init': 0               # initial value on reset (outputs only)
     },
     'din1': {
@@ -26,7 +26,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 1,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din2': {
         'comment': 'Digital input channel 2',
@@ -35,7 +35,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 2,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din3': {
         'comment': 'Digital input channel 3',
@@ -44,7 +44,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din4': {
         'comment': 'Digital input channel 4',
@@ -53,7 +53,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 4,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din5': {
         'comment': 'Digital input channel 5',
@@ -62,7 +62,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 5,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din6': {
         'comment': 'Digital input channel 6',
@@ -71,7 +71,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 6,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din7': {
         'comment': 'Digital input channel 7',
@@ -80,7 +80,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 7,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din8': {
         'comment': 'Digital input channel 8',
@@ -89,7 +89,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 0,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din9': {
         'comment': 'Digital input channel 9',
@@ -98,7 +98,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 1,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din10': {
         'comment': 'Digital input channel 10',
@@ -107,7 +107,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 2,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din11': {
         'comment': 'Digital input channel 11',
@@ -116,7 +116,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din12': {
         'comment': 'Digital input channel 12',
@@ -125,7 +125,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 4,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din13': {
         'comment': 'Digital input channel 13',
@@ -134,7 +134,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 5,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din14': {
         'comment': 'Digital input channel 14',
@@ -143,7 +143,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 6,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din15': {
         'comment': 'Digital input channel 15',
@@ -152,7 +152,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 7,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
 
     # 2nd tca9539 IO port expander - 16 digital inputs
@@ -163,7 +163,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 0,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din17': {
         'comment': 'Digital input channel 17',
@@ -172,7 +172,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 1,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din18': {
         'comment': 'Digital input channel 18',
@@ -181,7 +181,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 2,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din19': {
         'comment': 'Digital input channel 19',
@@ -190,7 +190,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din20': {
         'comment': 'Digital input channel 20',
@@ -199,7 +199,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 4,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din21': {
         'comment': 'Digital input channel 21',
@@ -208,7 +208,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 5,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din22': {
         'comment': 'Digital input channel 22',
@@ -217,7 +217,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 6,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din23': {
         'comment': 'Digital input channel 23',
@@ -226,7 +226,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 7,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din24': {
         'comment': 'Digital input channel 24',
@@ -235,7 +235,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 0,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din25': {
         'comment': 'Digital input channel 25',
@@ -244,7 +244,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 1,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din26': {
         'comment': 'Digital input channel 26',
@@ -253,7 +253,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 2,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din27': {
         'comment': 'Digital input channel 27',
@@ -262,7 +262,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 3,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din28': {
         'comment': 'Digital input channel 28',
@@ -271,7 +271,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 4,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din29': {
         'comment': 'Digital input channel 29',
@@ -280,7 +280,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 5,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din30': {
         'comment': 'Digital input channel 30',
@@ -289,7 +289,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 6,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
     'din31': {
         'comment': 'Digital input channel 31',
@@ -298,7 +298,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 7,
         'direction': 1,
-        'polarity': 1,
+        'polarity': 0,
     },
 
     # 3rd tca9539 IO port expander - 16 digital outputs
@@ -309,7 +309,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 0,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout1': {
@@ -319,7 +319,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 1,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout2': {
@@ -329,7 +329,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 2,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout3': {
@@ -339,7 +339,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 3,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout4': {
@@ -349,7 +349,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 4,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout5': {
@@ -359,7 +359,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 5,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout6': {
@@ -369,7 +369,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 6,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout7': {
@@ -379,7 +379,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 7,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout8': {
@@ -389,7 +389,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 0,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout9': {
@@ -399,7 +399,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 1,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout10': {
@@ -409,7 +409,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 2,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout11': {
@@ -419,7 +419,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 3,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout12': {
@@ -429,7 +429,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 4,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout13': {
@@ -439,7 +439,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 5,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout14': {
@@ -449,7 +449,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 6,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dout15': {
@@ -459,7 +459,7 @@ PIN_ASSIGNMENTS = {
         'port': 1,
         'bit': 7,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
 
@@ -471,7 +471,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 0,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'dut_power_enable_output': {  # channel 1
@@ -521,7 +521,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 5,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'control_uncommitted_1': {  # channel 6
@@ -531,7 +531,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 6,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'nc_7': {  # channel 7 - not connected
@@ -541,7 +541,7 @@ PIN_ASSIGNMENTS = {
         'port': 0,
         'bit': 7,
         'direction': 0,
-        'polarity': 1,
+        'polarity': 0,
         'init': 0
     },
     'button1': {  # channel 8
@@ -717,7 +717,8 @@ PIN_ASSIGNMENTS = {
         'type': 'ADC',
         'device': 'analog_in1',
         'bit': 7,
-        'scale': 'vref'   # set to read DUT current as true voltage
+        # 'scale': 'vref'   # set to read DUT current as true voltage
+        'scale': 2.47
         # 'scale': 13.5   # set to read DUT current as amps @ 24 volts input
     },
 
@@ -752,7 +753,8 @@ PIN_ASSIGNMENTS = {
         'type': 'DAC',
         'device': 'analog_out0',
         'bit': 3,
-        'scale': 16.5  # normalizes set(n) current limit to Amps
+        # 'scale': 16.5  # normalizes set(n) current limit to Amps
+        'scale': 2.47    # outputs in volts
     },
 
     # 2nd dac5574 Digital to Analog converter - 4 analog outputs

@@ -31,7 +31,7 @@ ref: https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/
 from typing import Callable, Dict
 
 
-INITIAL_CURRENT_LIMIT = 0.1  # amps
+INITIAL_CURRENT_LIMIT = 0.2  # set as voltage to limit pin (3)
 
 
 class dut_power(object):
