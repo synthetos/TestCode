@@ -32,7 +32,6 @@ def main():
     p.dac2.write(dac_value)
     p.dac3.write(dac_value)
 
-    # while True:
     for i in range(0, 5):
         p.dout0.toggle()
         p.dout1.toggle()
