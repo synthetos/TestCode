@@ -9,6 +9,7 @@ from pin_assignments import PIN_ASSIGNMENTS
 from pin import pin
 from util import fatal
 
+
 class pins(object):
 
     def __init__(self, devices, pin_assignments):
@@ -25,6 +26,7 @@ class pins(object):
             self.pins[name] = pin(device, properties)        # add to dict of all pins
             object.__setattr__(self, name, self.pins[name])  # make pin accessible by p.<name>
             print("  Initialized pin {:8}  {:}".format(name, properties['comment']))
+
 
 # Do Not Delete
 if __name__ == "__main__":

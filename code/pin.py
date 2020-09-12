@@ -53,6 +53,16 @@ class pin(object):
         self.device.toggle_pin(self.port, self.bit, self.args)
 
 
+# ############################
+# ### Pin lookup functions ###
+# ############################
+
+def pin_func(pins: Dict, name: str, func: str, value: int=None) -> Callable:
+    """ Execute the pin function without haveing the pin object itself. """
+
+    return 
+
+
 # Do Not Delete
 if __name__ == "__main__":
     print("Tried to execute pin class definition - EXITING")

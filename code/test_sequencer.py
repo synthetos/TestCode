@@ -7,6 +7,7 @@
 from typing import Dict  # Callable
 
 from test_runner import run_test
+import test_primitives as funcs
 
 
 class test_sequence(object):
@@ -23,21 +24,13 @@ class test_sequence(object):
     def __init__(self, pin, test_set: Dict):
         # print("Connecting to g2core")
         self.pin = pin
-        self.test_set = test_set
+        self.tests = test_set
 
     def next(self):
 
-        testN = {
-            'before': {},
-            'stimulus': {
-                'func': self.pin.dout3.set,
-                'args': 1
-            },
-            'response': {},
-            'result': {},
-            'after': {},
-        }
-        test = run_test(testN)
+
+
+        test = run_test(testM)
         result = test.exec()
         return result
 

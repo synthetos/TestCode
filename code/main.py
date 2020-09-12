@@ -16,6 +16,27 @@ from util import reset
 
 from dut_power import dut_power
 
+tests = {
+    testM: {
+        'display': "Test pin 3",
+        'func': funcs.test_digital_to_digital,
+        'set': self.pin.dout3.set,
+        'read': self.pin.din3.read,
+    },
+    testN: {
+        'before': {},
+        'stimulus': {
+            'func': self.pin.dout3.set,
+            'args': 1
+        },
+        'response': {
+            'func': self.pin.din3.read,
+            'args': None
+        },
+        'result': {},
+        'after': {},
+    }
+}
 
 def main():
 
@@ -56,6 +77,7 @@ def main():
             break
 
     reset()
+
 
 # Do Not Delete
 if __name__ == "__main__":
