@@ -2,7 +2,10 @@
 
     Entry point for tester
 
+toDo:
+- make devices and pin wrnaglers work more like test wrangler. Called explicitly
 """
+
 import time
 # from typing import Dict
 
@@ -12,11 +15,9 @@ from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
 from test_wrangler import test_wrangler
 from test_sequencer import test_sequence
+from dut_power import dut_power
 from util import reset
 from logger import get_logger
-# from pin import pin
-
-from dut_power import dut_power
 
 log = get_logger()
 

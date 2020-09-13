@@ -1,6 +1,6 @@
-""" test_primitives.py
+""" test_functions.py
 
-    Low level functions useful for creating tests
+    Functions used for creating tests
 """
 from typing import Dict  # Callable
 
