@@ -20,6 +20,7 @@ class devices(object):
             self.devices[name] = properties['device'](self.bus, properties)
             print("  Initialized {:12}  {:}".format(name, properties['comment']))
 
+
 # Do Not Delete
 if __name__ == "__main__":
     print("Tried to execute device_wrangler class definition - EXITING")

@@ -7,7 +7,7 @@
 from typing import Dict  # Callable
 
 from test_runner import run_test
-import test_primitives as funcs
+# import test_primitives as funcs
 
 
 class test_sequence(object):
@@ -37,4 +37,4 @@ class test_sequence(object):
 
 # Do Not Delete
 if __name__ == "__main__":
-    print("Tried to execute util.py - EXITING")
+    print("Tried to execute test_sequencer.py - EXITING")

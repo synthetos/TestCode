@@ -6,6 +6,9 @@
 
 from typing import Dict, Callable
 from util import fatal
+from logger import get_logger
+
+log = get_logger()
 
 VALID_PIN_TYPES = ['IO', 'ADC', 'DAC']
 
@@ -57,11 +60,31 @@ class pin(object):
 # ### Pin lookup functions ###
 # ############################
 
-def pin_func(pins: Dict, name: str, func: str, value: int=None) -> Callable:
+def pinf(pins: Dict, name: str) -> Callable:
+    """ Return pin onject by name """
+    try:
+        return pins['name']
+    except IndexError:
+        log.warning("unknown pin name")
+        return None
+
+'''
+def pin_func(pins: Dict, name: str, func: str, value=None) -> Callable:
     """ Execute the pin function without haveing the pin object itself. """
+    funcs = {
+        'read': pin.read(),
+        'write': pin.write(value),
+        'set': pin.write(value),
+        'clear': pin.write(),
+        'toggle': pin.write()
+    }
+    try:
+        pin = pins['name']
+    except IndexError:
+        log.warning("unknown pin name")
 
     return 
-
+'''
 
 # Do Not Delete
 if __name__ == "__main__":

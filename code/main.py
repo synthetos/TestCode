@@ -10,39 +10,23 @@ from device_assignments import DEVICE_ASSIGNMENTS
 from device_wrangler import devices
 from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
+from test_wrangler import test_wrangler
 from test_sequencer import test_sequence
 from util import reset
+from logger import get_logger
 # from pin import pin
 
 from dut_power import dut_power
 
-tests = {
-    testM: {
-        'display': "Test pin 3",
-        'func': funcs.test_digital_to_digital,
-        'set': self.pin.dout3.set,
-        'read': self.pin.din3.read,
-    },
-    testN: {
-        'before': {},
-        'stimulus': {
-            'func': self.pin.dout3.set,
-            'args': 1
-        },
-        'response': {
-            'func': self.pin.din3.read,
-            'args': None
-        },
-        'result': {},
-        'after': {},
-    }
-}
+log = get_logger()
+
 
 def main():
 
     reset()
     dev = devices(DEVICE_ASSIGNMENTS)
     pin = pins(dev, PIN_ASSIGNMENTS)
+    tests = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
 
     dut = dut_power(pin)
     dut.power_on()
@@ -69,6 +53,7 @@ def main():
             pin.adc0.read(),
             dac_value))
         time.sleep(1.0)
+
 
     tests = test_sequence(pin, {})
     while True:

@@ -30,4 +30,4 @@ def test_digital_to_digital(self, args: Dict) -> str:
 
 # Do Not Delete
 if __name__ == "__main__":
-    print("Tried to execute util.py - EXITING")
+    print("Tried to execute test_primitives.py - EXITING")

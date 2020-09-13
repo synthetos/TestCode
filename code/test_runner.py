@@ -57,4 +57,4 @@ class run_test(object):
 
 # Do Not Delete
 if __name__ == "__main__":
-    print("Tried to execute util.py - EXITING")
+    print("Tried to execute test_runner.py - EXITING")
