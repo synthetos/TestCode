@@ -4,23 +4,7 @@
     It is typically called by test_sequencer
     It uses test_wrangler to assemble the test sequence.
 
-    The basic structure of a test definition dictionary looks like this:
-
-    test_name = {
-        'display': 'String to display'  (may be absent)
-        'before': {},                   (may be absent)
-        'stimulus': {         # action[s] to initiate test
-            'func': Callable  # stimulus function (binding)
-            'args': Any       # int, float, Dict or None depending on func
-        },
-        'response': {         # action[s] to initiate test
-            'func': Callable  # response function (binding)
-            'args': Any       # int, float, Dict or None depending on func
-        },
-        'result': {},         # analyze, report and pass/fail callbacks from response
-        'after': {},          # zero or more functions to run after test (may be absent)
-    }
-
+    See test_wrangler for structure of a test definition dictionary
     ToDo: 
     - Make before, stimulus, response and after optionally accept an array of Dicts
 """

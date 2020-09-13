@@ -19,7 +19,7 @@
         test_name_2: {},
         ...
         test_name_N: {}     # name of Nth test (string)
-    } 
+    }
 
     Test structure:
         The [R] means this is a required field for all tests.
@@ -35,11 +35,15 @@
             'stimulus': str     # pin or action to initiate test (see conventions)
             'response': str     # pin or channel to receive response (see conventions)
             'pattern': str      # pattern to match to determine result
-            '_other_': Any      # other args may be used by specific functions
+            'control': str      # supports skip, end and other controls
+            ...other: Any       # other args may be used by specific test functions
         }
-        'result': ""            # function returns 'pass' or 'fail' (null string on entry)
-        'message': str          # additional message returned by function
-
+        'results': {
+            'passfail': ""      # function returns 'pass' or 'fail' (null string on entry)
+            'message': ""       # additional message returned by function
+            ...other: Any       # other data may be returned by specific test functions
+        }
+        # optional - not implemented
         'before': {             # function and args to run before test (optional)
             'function': str
             '_args_': str
@@ -58,40 +62,49 @@
     - function: see test_functions for complete set of supported test functions
 
     - stimulus: the valid form depends on the function. Conventions are:
-        "send:{JSON} or Gcode or whatever"
-                    Any string prefixed by 'send:' (case insensitive)
-                    is interpreted as a string that can be sent to the DUT.
-                    Spaces trailing the colon are removed.
-                    It is not validatred further than isolating the send string.
+        ">{JSON} or Gcode or whatever"
+                    Any string prefixed by '>' is interpreted as a string that can be sent to the DUT.
+                    Spaces trailing the '>' are removed.
 
         "dout2"     Output pin
-                    Any non-prefixed string is interpred as an output pin,
+                    Any non-prefixed string is interpreted as an output pin,
                     and is validated against pins dictionary for existence & direction.
-                    If a value is required (e.g. for a DAC) it must be passed 
+                    If a value is required (e.g. for a DAC) it must be passed
                     in the function args as 'value': float | int | a list of same
+
+    - response: the valid form depends on the function. Conventions are:
+        "<{JSON} or Gcode or whatever"
+                    Any string prefixed by '<' is interpreted as a string that can be received from the DUT.
+                    Spaces trailing the '<' are removed.
+
+        "din2"      Input pin
+                    Any non-prefixed string is interpreted as an input pin,
+                    and is validated against pins dictionary for existence & direction.
 
 """
 from typing import Dict, Callable
 
-# Functions for validation
-# These functions are not actually called - they are used to check test sets
-from test_functions import test_digital_to_digital     # self-test of the tester board itself
-
-# Utility functions
 from util import fatal
 from logger import get_logger
+
+# Test Functions
+# These functions are not actually called - they are used to validate tests
+from test_functions import test_digital_to_digital     # self-test of the tester board itself
+
 
 log = get_logger()
 
 
 # Temporary definition for a test before I get the JSON load functions going
-test_spec = {
+test_set = {
     'test_pin3': {
-        'display': "Test pin 3",
-        'function': 'test_digital_to_digita',
-        'stimulus': 'dout3',
-        'response': 'din3',
-    },
+        'test': {
+            'display': "Test pin 3",
+            'function': 'test_digital_to_digital',
+            'stimulus': 'dout3',
+            'response': 'din3',
+        }
+    }
 }
 
 
@@ -104,20 +117,19 @@ class test_wrangler(object):
         """
         self.pins = pins
         self.dut = dut
-        self.function_map = {
-            'test_digital_to_digital': test_digital_to_digital,
-        }
-        self.test_plaintext = self._load_test_set(filepath)
-        self.tests = self._validate_test_set(self.test_plaintext)
+        self.tests = self._load_tests(filepath)
+        self.tests = self._validate_tests(self.tests)
 
-    def _load_test_set(self, filepath: str) -> Dict:
+    def _load_tests(self, filepath: str) -> Dict:
         """ Load a set of tests from a test specification (source) 
             and return the plain-text tests as a dict with un-resolved functions
         """
-        return test_spec
+        return test_set
 
-    def _validate_test_set(self, plaintest: str):
-        """ Resolve the functions in the incoming plain-text test document.
+    def _validate_tests(self, tests: str):
+        """ Perform basic validation on the loaded test set.
+            Verify that function exists, 
+            and that stimulus and response exist and follow conventions.
             Errors are fatal - as they are unresolvable and would invalidate the test.
         """
         validators = {
@@ -126,33 +138,40 @@ class test_wrangler(object):
             'response': self._validate_response,
         }
 
-        test_set = {}
-        for test_name, test_elem in plaintest.items():
-            test_set[test_name] = {}
-            for key, raw_value in test_elem.items():
-                test_set[test_name][key] = raw_value
+        for test_name, test_structs in tests.items():
+            test = test_structs['test']
+            for key, value in test.items():
                 try:
-                    resolved_value = validators[key](raw_value)
-                    test_set[test_name][key] = resolved_value
+                    validators[key](value)
                 except KeyError:  # this is OK and expected
                     continue
 
         return test_set
 
-    def _validate_function(self, function_name: str) -> bool:
+    def _validate_function(self, function_name: str):
         """ eval() converts the name of the function into a function object
             Fail validation if the function is not found
-        """ 
+        """
         try:
             eval(function_name)
         except NameError:
-            fatal("Function not found: {:}".format(function_name))
+            fatal("Test function not found: {:}".format(function_name))
 
-    def _validate_stimulus(self, stimulus_name: str) -> bool:
+    def _validate_stimulus(self, stimulus_name: str):
+        if stimulus_name[0] == '>':
+            return
         try:
-            pins(stimulus_name)
-        except KeyError:
-            fatal("Stimulus not found: {:}".format(stimulus_name))
+            getattr(self.pins, stimulus_name)
+        except AttributeError:
+            fatal("Stimulus pin not found: {:}".format(stimulus_name))
+
+    def _validate_response(self, response_name: str):
+        if response_name[0] == '<':
+            return
+        try:
+            getattr(self.pins, response_name)
+        except AttributeError:
+            fatal("Response pin not found: {:}".format(response_name))
 
 
 # Do Not Delete
