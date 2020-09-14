@@ -14,7 +14,7 @@
 
     Test document structure:
 
-    test_set: {             # name of whole test set (string)
+    test_set: {             # !!! Must be named test_set !!!
         test_name_1: {},    # name of first test (string)
         test_name_2: {},
         ...

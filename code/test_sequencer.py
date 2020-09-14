@@ -6,7 +6,8 @@
 """
 from typing import Dict  # Callable
 
-from test_runner import run_test
+from util import fatal
+# from test_runner import run_test
 # import test_primitives as funcs
 
 
@@ -22,17 +23,24 @@ class test_sequence(object):
     """
 
     def __init__(self, pin, test_set: Dict):
-        # print("Connecting to g2core")
         self.pin = pin
-        self.tests = test_set
+        self.test_set = test_set
 
-    def next(self):
+    def gen(self):
+        """ test_name is the outer wrapper
+            test_dicts contains the test, results, before... dictionaries
+        """
+        for test_name, test_dicts in self.test_set.tests.items():
+            try:
+                func = eval(test_dicts['test']['function'])
+            except NameError:
+                fatal("Unable to run test: {:}()".format(test_dicts['test']['function']))
+            yield func, test_dicts
+            # yield test_wrapper['test']
 
-
-
-        test = run_test(testM)
-        result = test.exec()
-        return result
+        # test = run_test(testM)
+        # result = test.exec()
+        # return result
 
 
 # Do Not Delete

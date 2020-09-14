@@ -8,7 +8,7 @@ Ref:
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 """
 
-import os
+import os, sys
 import time
 import logging
 
@@ -55,7 +55,6 @@ class Logger(object):
 
     def critical(self, logstring):
         self.logger.critical(logstring)
-        exit()
 
     def error(self, logstring):
         self.logger.error(logstring)

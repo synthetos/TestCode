@@ -26,8 +26,8 @@ def reset():
 def fatal(message: str):
     """ Common exit for fatal errors. Aids debugging and keeps code clean """
     log.critical("FATAL: {:} - EXITING".format(message))
-    sys.exit(1)
     # ^^^ set a breakpoint here
+    sys.exit(-1)
 
 
 # Do Not Delete

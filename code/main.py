@@ -6,6 +6,7 @@ toDo:
 - make devices and pin wrnaglers work more like test wrangler. Called explicitly
 """
 
+import os
 import time
 # from typing import Dict
 
@@ -19,6 +20,8 @@ from dut_power import dut_power
 from util import reset
 from logger import get_logger
 
+# os.chdir('./TestCode')
+# os.chdir('.')
 log = get_logger()
 
 
@@ -27,7 +30,8 @@ def main():
     reset()
     dev = devices(DEVICE_ASSIGNMENTS)
     pin = pins(dev, PIN_ASSIGNMENTS)
-    tests = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
+    test_set = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
+    test_seq = test_sequence(pin, test_set)
 
     dut = dut_power(pin)
     dut.power_on()
@@ -55,12 +59,14 @@ def main():
             dac_value))
         time.sleep(1.0)
 
-
-    tests = test_sequence(pin, {})
+    next_test = test_seq.gen()  # setup test sequence generator
     while True:
-        result = tests.next()
-        if result is None:    # tests are complete
+        func, test_dicts = next(next_test)
+        if func is None:    # tests are complete
             break
+
+        result = func(test_dicts)
+        print(result)
 
     reset()
 
