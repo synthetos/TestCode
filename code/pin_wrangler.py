@@ -10,7 +10,7 @@ from pin import pin
 from util import fatal
 
 
-class pins(object):
+class pin_wrangler(object):
 
     def __init__(self, devices, pin_assignments):
 

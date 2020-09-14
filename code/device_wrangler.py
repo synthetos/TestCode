@@ -8,7 +8,7 @@
 from smbus2 import SMBus, i2c_msg
 
 
-class devices(object):
+class device_wrangler(object):
 
     def __init__(self, device_assignments):
 

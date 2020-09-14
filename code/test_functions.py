@@ -4,6 +4,11 @@
 """
 from typing import Dict, Callable
 
+from util import reset
+from logger import get_logger
+
+log = get_logger()
+
 
 def test_digital_to_digital(test: Callable) -> str:
     """ Test a digital outout connected to a digital input line.
@@ -15,17 +20,21 @@ def test_digital_to_digital(test: Callable) -> str:
         }
         returns: 'pass', 'fail', 'error'
     """
-    try:
-        args['set'](1)
-        one = args['read']()
-        args['set'](0)
-        zero = args['read']()
-        if one == 1 and zero == 0:
-            return 'pass'
-        else:
-            return 'fail'
-    except IndexError:
-        return 'error'
+    test.test_dict['results'] = {}
+    test.test_dict['results']['result'] = 'fail'
+    params = test.test_dict['params']
+    log.info("Running {:}".format(params['display']))
+    pinout = getattr(test.pins, params['stimulus'])
+    pinin = getattr(test.pins, params['response'])
+
+    pinout.set(1)
+    hi = pinin.read()
+    pinout.set(0)
+    lo = pinin.read()
+
+    if hi == 1 and lo == 0:
+        test.test_dict['results']['result'] = 'pass'
+    return test.test_dict['results']['result']
 
 
 # Do Not Delete

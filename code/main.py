@@ -11,9 +11,9 @@ import time
 # from typing import Dict
 
 from device_assignments import DEVICE_ASSIGNMENTS
-from device_wrangler import devices
+from device_wrangler import device_wrangler
 from pin_assignments import PIN_ASSIGNMENTS
-from pin_wrangler import pins
+from pin_wrangler import pin_wrangler
 from test_wrangler import test_wrangler
 # from test_sequencer import test_sequence
 from dut_power import dut_power
@@ -28,34 +28,34 @@ log = get_logger()
 def main():
 
     reset()
-    dev = devices(DEVICE_ASSIGNMENTS)
-    pin = pins(dev, PIN_ASSIGNMENTS)
-    tests = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
+    devs = device_wrangler(DEVICE_ASSIGNMENTS)
+    pins = pin_wrangler(devs, PIN_ASSIGNMENTS)
+    tests = test_wrangler(pins, {"no_dut_yet": None}, "no_test_file_yet")
     test_gen = tests.test_sequence_generator()
 
-    dut = dut_power(pin)
+    dut = dut_power(pins)
     dut.power_on()
     dut.show()
 
     dac_value = 1.28
-    pin.dac0.write(dac_value)
-    pin.dac1.write(dac_value)
-    pin.dac2.write(dac_value)
-    pin.dac3.write(dac_value)
+    pins.dac0.write(dac_value)
+    pins.dac1.write(dac_value)
+    pins.dac2.write(dac_value)
+    pins.dac3.write(dac_value)
 
     for i in range(0, 5):
-        pin.dout0.toggle()
-        pin.dout1.toggle()
-        pin.led4.toggle()
+        pins.dout0.toggle()
+        pins.dout1.toggle()
+        pins.led4.toggle()
 
         dac_value += 0.1
         if dac_value > 3.3:
             dac_value = 0.0
-        pin.dac0.write(dac_value)
+        pins.dac0.write(dac_value)
 
         print("din0: {:}, adc0: {:6.4f}, dac0 {:4.3f}".format(
-            pin.din1.read(),
-            pin.adc0.read(),
+            pins.din1.read(),
+            pins.adc0.read(),
             dac_value))
         time.sleep(1.0)
 
