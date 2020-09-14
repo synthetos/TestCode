@@ -2,10 +2,10 @@
 
     Functions used for creating tests
 """
-from typing import Dict  # Callable
+from typing import Dict, Callable
 
 
-def test_digital_to_digital(self, args: Dict) -> str:
+def test_digital_to_digital(test: Callable) -> str:
     """ Test a digital outout connected to a digital input line.
         This is a specialized test that's only meaningdful to self-r=test the baseboared
 

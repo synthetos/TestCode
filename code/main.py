@@ -15,7 +15,7 @@ from device_wrangler import devices
 from pin_assignments import PIN_ASSIGNMENTS
 from pin_wrangler import pins
 from test_wrangler import test_wrangler
-from test_sequencer import test_sequence
+# from test_sequencer import test_sequence
 from dut_power import dut_power
 from util import reset
 from logger import get_logger
@@ -30,8 +30,8 @@ def main():
     reset()
     dev = devices(DEVICE_ASSIGNMENTS)
     pin = pins(dev, PIN_ASSIGNMENTS)
-    test_set = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
-    test_seq = test_sequence(pin, test_set)
+    tests = test_wrangler(pin, {"no_dut_yet": None}, "no_test_file_yet")
+    test_gen = tests.test_sequence_generator()
 
     dut = dut_power(pin)
     dut.power_on()
@@ -59,13 +59,12 @@ def main():
             dac_value))
         time.sleep(1.0)
 
-    next_test = test_seq.gen()  # setup test sequence generator
     while True:
-        func, test_dicts = next(next_test)
+        func, test_obj = next(test_gen)
         if func is None:    # tests are complete
             break
 
-        result = func(test_dicts)
+        result = func(test_obj)
         print(result)
 
     reset()

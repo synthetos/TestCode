@@ -10,6 +10,10 @@ from util import fatal
 # from test_runner import run_test
 # import test_primitives as funcs
 
+# Test Functions
+# These functions are not actually called - they are used to validate tests
+from test_functions import test_digital_to_digital     # self-test of the tester board itself
+
 
 class test_sequence(object):
     """ Run a sequence of tests.
