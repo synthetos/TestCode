@@ -1,5 +1,5 @@
 # Stuff added for TestCode project
-logs/
+logs/*.txt
 db/
 
 # Byte-compiled / optimized / DLL files
